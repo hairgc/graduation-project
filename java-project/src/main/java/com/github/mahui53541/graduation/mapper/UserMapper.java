@@ -2,6 +2,8 @@ package com.github.mahui53541.graduation.mapper;
 
 import com.github.mahui53541.graduation.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<User> selectAllUser();
 }

@@ -4,7 +4,7 @@ server:
 spring:
     datasource:
         name: swzl
-        url: jdbc:mysql://127.0.0.1:3306/swzl
+        url: jdbc:mysql://localhost:3306/swzl
         username: root
         password: 123456
         # 使用druid数据源
@@ -28,8 +28,8 @@ mybatis:
   type-aliases-package: com.github.mahui53541.graduation.model
 
 #pagehelper分页插件
-pagehelper:
-    helperDialect: mysql
-    reasonable: true
-    supportMethodsArguments: true
-    params: count=countSql
+#pagehelper:
+#    helperDialect: mysql
+#    reasonable: true
+#    supportMethodsArguments: true
+#    params: count=countSql
