@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mahui53541.graduation.mapper.FoundMapper">
+  <resultMap id="BaseResultMap" type="com.github.mahui53541.graduation.model.Found">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="found_name" jdbcType="VARCHAR" property="foundName" />
+    <result column="found_picture" jdbcType="VARCHAR" property="foundPicture" />
+    <result column="set_false_claim" jdbcType="BIT" property="setFalseClaim" />
+    <result column="found_datetime" jdbcType="TIMESTAMP" property="foundDatetime" />
+    <result column="expiry_datetime" jdbcType="TIMESTAMP" property="expiryDatetime" />
+    <result column="is_found" jdbcType="BIT" property="isFound" />
+    <result column="found_lost_datetime" jdbcType="TIMESTAMP" property="foundLostDatetime" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="has_reviewed" jdbcType="BIT" property="hasReviewed" />
+    <result column="has_passed" jdbcType="BIT" property="hasPassed" />
+    <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="found_description" jdbcType="LONGVARCHAR" property="foundDescription" />
+  </resultMap>
+</mapper>

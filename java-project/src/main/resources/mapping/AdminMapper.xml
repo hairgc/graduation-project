@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.github.mahui53541.graduation.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.github.mahui53541.graduation.model.User">
+<mapper namespace="com.github.mahui53541.graduation.mapper.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.github.mahui53541.graduation.model.Admin">
     <!--
       WARNING - @mbg.generated
     -->

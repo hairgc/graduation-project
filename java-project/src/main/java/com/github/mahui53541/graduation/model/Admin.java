@@ -2,7 +2,7 @@ package com.github.mahui53541.graduation.model;
 
 import javax.persistence.*;
 
-public class User {
+public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
@@ -20,13 +20,13 @@ public class User {
     private Boolean sex;
 
     /**
-     * 手机号
+     * 手机
      */
     @Column(name = "phone_number")
     private String phoneNumber;
 
     /**
-     * 用户姓名
+     * 用户昵称
      */
     private String nickname;
 
@@ -97,36 +97,36 @@ public class User {
     }
 
     /**
-     * 获取手机号
+     * 获取手机
      *
-     * @return phone_number - 手机号
+     * @return phone_number - 手机
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
-     * 设置手机号
+     * 设置手机
      *
-     * @param phoneNumber 手机号
+     * @param phoneNumber 手机
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber == null ? null : phoneNumber.trim();
     }
 
     /**
-     * 获取用户姓名
+     * 获取用户昵称
      *
-     * @return nickname - 用户姓名
+     * @return nickname - 用户昵称
      */
     public String getNickname() {
         return nickname;
     }
 
     /**
-     * 设置用户姓名
+     * 设置用户昵称
      *
-     * @param nickname 用户姓名
+     * @param nickname 用户昵称
      */
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
