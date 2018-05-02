@@ -1,13 +1,13 @@
 <template>
-  <div class="layout">
+  <div class="hello">
     <Layout>
       <Header>
         <Menu mode="horizontal" theme="dark" active-name="1">
           <div class="layout-logo"></div>
           <div class="layout-nav">
             <MenuItem name="1">
-              <Icon type="ios-navigate"></Icon>
-              Item 1
+
+              <Button type="primary" @click="getHttp"><Icon type="ios-navigate"></Icon>Item1</Button>
             </MenuItem>
             <MenuItem name="2">
               <Icon type="ios-keypad"></Icon>
@@ -71,40 +71,41 @@
     </Layout>
   </div>
 </template>
+
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  data () {
+    return {
+      msg: 'Welcome to Your Vue.js App'
+    }
+  },
+  methods:{
+    getHttp(){
+      this.axios.get('/api/user/all/1/0').then((res) => {
+        console.log(res.data)
+      }).catch(function(err){
+        console.log(err)
+      })
+    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-  .layout{
-    border: 1px solid #d7dde4;
-    background: #f5f7f9;
-    position: relative;
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .layout-logo{
-    width: 100px;
-    height: 30px;
-    background: #5b6270;
-    border-radius: 3px;
-    float: left;
-    position: relative;
-    top: 15px;
-    left: 20px;
-  }
-  .layout-nav{
-    width: 420px;
-    margin: 0 auto;
-    margin-right: 20px;
-  }
-  .layout-footer-center{
-    text-align: center;
-  }
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
 </style>
