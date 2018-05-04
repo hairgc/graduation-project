@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.mahui53541.graduation.mapper.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.github.mahui53541.graduation.model.Role">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_sn" jdbcType="VARCHAR" property="roleSn" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+  </resultMap>
+
+  <select id="getByAdminId" resultMap="BaseResultMap">
+    SELECT r.* FROM role r INNER JOIN admin_role ar ON r.id=ar.role_id WHERE ar.admin_id=#{adminId}
+  </select>
+  <select id="getByUserId" resultMap="BaseResultMap">
+    SELECT r.* FROM role r INNER JOIN user_role ar ON r.id=ar.role_id WHERE ar.user_id=#{userId}
+  </select>
+</mapper>

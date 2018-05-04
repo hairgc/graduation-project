@@ -1,8 +1,12 @@
 package com.github.mahui53541.graduation.model;
 
+import java.util.Date;
 import javax.persistence.*;
 
 public class User {
+    /**
+     * 主键ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
@@ -12,6 +16,9 @@ public class User {
      */
     private String username;
 
+    /**
+     * 密码
+     */
     private String password;
 
     /**
@@ -30,17 +37,30 @@ public class User {
      */
     private String nickname;
 
+    /**
+     * 是否删除
+     */
     private Boolean deleted;
 
     /**
-     * @return id
+     * 注册时间
+     */
+    @Column(name = "register_time")
+    private Date registerTime;
+
+    /**
+     * 获取主键ID
+     *
+     * @return id - 主键ID
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键ID
+     *
+     * @param id 主键ID
      */
     public void setId(Integer id) {
         this.id = id;
@@ -65,14 +85,18 @@ public class User {
     }
 
     /**
-     * @return password
+     * 获取密码
+     *
+     * @return password - 密码
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * @param password
+     * 设置密码
+     *
+     * @param password 密码
      */
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
@@ -133,16 +157,38 @@ public class User {
     }
 
     /**
-     * @return deleted
+     * 获取是否删除
+     *
+     * @return deleted - 是否删除
      */
     public Boolean getDeleted() {
         return deleted;
     }
 
     /**
-     * @param deleted
+     * 设置是否删除
+     *
+     * @param deleted 是否删除
      */
     public void setDeleted(Boolean deleted) {
         this.deleted = deleted;
+    }
+
+    /**
+     * 获取注册时间
+     *
+     * @return register_time - 注册时间
+     */
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    /**
+     * 设置注册时间
+     *
+     * @param registerTime 注册时间
+     */
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
     }
 }

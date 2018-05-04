@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 @Table(name = "user_lost")
 public class UserLost {
+    /**
+     * 主键ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
@@ -34,14 +37,18 @@ public class UserLost {
     private Date submitDatetime;
 
     /**
-     * @return id
+     * 获取主键ID
+     *
+     * @return id - 主键ID
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键ID
+     *
+     * @param id 主键ID
      */
     public void setId(Integer id) {
         this.id = id;

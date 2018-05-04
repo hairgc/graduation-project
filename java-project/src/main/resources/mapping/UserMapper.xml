@@ -12,5 +12,6 @@
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
   </resultMap>
 </mapper>

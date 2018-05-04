@@ -28,8 +28,20 @@ mybatis:
 
 
 #pagehelper
-#pagehelper:
-#    helperDialect: mysql
-#    reasonable: true
-#    supportMethodsArguments: true
-#    params: count=countSql
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
+#日志打印（SQL）
+logging:
+  level:
+    com.github.mahui53541.graduation.mapper: DEBUG
+
+#Jwt
+jwt:
+  header: Authorization
+  secret: mySecret
+  expiration: 604800
+  tokenHead: Bearer

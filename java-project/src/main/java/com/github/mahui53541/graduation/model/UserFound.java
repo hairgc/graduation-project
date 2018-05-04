@@ -5,6 +5,9 @@ import javax.persistence.*;
 
 @Table(name = "user_found")
 public class UserFound {
+    /**
+     * 主键ID
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "SELECT LAST_INSERT_ID()")
     private Integer id;
@@ -27,18 +30,25 @@ public class UserFound {
     @Column(name = "is_confirm")
     private Boolean isConfirm;
 
+    /**
+     * 提交时间
+     */
     @Column(name = "submit_datetime")
     private Date submitDatetime;
 
     /**
-     * @return id
+     * 获取主键ID
+     *
+     * @return id - 主键ID
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * @param id
+     * 设置主键ID
+     *
+     * @param id 主键ID
      */
     public void setId(Integer id) {
         this.id = id;
@@ -99,14 +109,18 @@ public class UserFound {
     }
 
     /**
-     * @return submit_datetime
+     * 获取提交时间
+     *
+     * @return submit_datetime - 提交时间
      */
     public Date getSubmitDatetime() {
         return submitDatetime;
     }
 
     /**
-     * @param submitDatetime
+     * 设置提交时间
+     *
+     * @param submitDatetime 提交时间
      */
     public void setSubmitDatetime(Date submitDatetime) {
         this.submitDatetime = submitDatetime;
