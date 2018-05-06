@@ -17,6 +17,7 @@
     <result column="has_reviewed" jdbcType="BIT" property="hasReviewed" />
     <result column="has_passed" jdbcType="BIT" property="hasPassed" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
+    <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="lost_description" jdbcType="LONGVARCHAR" property="lostDescription" />
   </resultMap>
 </mapper>

@@ -88,6 +88,9 @@ public class Found {
     @Column(name = "found_description")
     private String foundDescription;
 
+    @Column(name = "label")
+    private String label;
+
     /**
      * 获取主键ID
      *
@@ -338,5 +341,13 @@ public class Found {
      */
     public void setFoundDescription(String foundDescription) {
         this.foundDescription = foundDescription == null ? null : foundDescription.trim();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -82,6 +82,9 @@ public class Lost {
     @Column(name = "lost_description")
     private String lostDescription;
 
+    @Column(name = "label")
+    private String label;
+
     /**
      * 获取主键ID
      *
@@ -314,5 +317,13 @@ public class Lost {
      */
     public void setLostDescription(String lostDescription) {
         this.lostDescription = lostDescription == null ? null : lostDescription.trim();
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 }
