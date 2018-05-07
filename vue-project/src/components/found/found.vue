@@ -28,7 +28,9 @@
             </div>
 
             <p>
-              <Button type="success" long>详情</Button>
+              <router-link :to="'/found/'+row.id">
+                <Button type="success" long>详情</Button>
+              </router-link>
             </p>
           </Card>
         </Col>

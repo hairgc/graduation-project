@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import lost from '@/components/lost/lost';
 import found from '@/components/found/found';
-
+import login from  '@/components/login'
+import foundDetail from '@/components/found/found_detail';
 Vue.use(Router)
 
 export default new Router({
@@ -24,8 +25,18 @@ export default new Router({
           name:'found',
           path: 'found/:page/:rows',
           component: found
+        },{
+          path:'/found/:id',
+          name:'foundDetail',
+          component:foundDetail
         }
+
       ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: login
     }
   ]
 })

@@ -1,28 +1,60 @@
 <template>
   <div class="layout">
     <Layout>
-      <Header :style="{position: 'fixed', width: '100%',zIndex:10}">
-        <Menu mode="horizontal" theme="dark" active-name="1">
-          <div class="layout-logo"></div>
+      <Header :style="{position: 'fixed', width: '100%',zIndex:10,background:'#fff',padding:'0'}">
+        <Menu mode="horizontal" theme="light" class="layout-menu">
+          <div class="layout-logo">
+            中国矿业大学失物招领网站
+          </div>
           <div class="layout-nav">
             <router-link to="/found/1/20">
-            <MenuItem name="1">
+            <MenuItem name="found">
               失物招领
             </MenuItem>
             </router-link>
             <router-link to="/lost/1/20">
-            <MenuItem name="2">
+            <MenuItem name="lost">
               寻物启事
             </MenuItem>
             </router-link>
-            <MenuItem name="3">
-              <Icon type="log-in"></Icon>
-              登录
-            </MenuItem>
-            <MenuItem name="4">
-              <Icon type="log-out"></Icon>
-              注册
-            </MenuItem>
+            <div v-if="token==null">
+              <router-link to="/login">
+                <MenuItem name="login">
+                  <Icon type="log-in"></Icon>
+                  登录
+                </MenuItem>
+              </router-link>
+              <MenuItem name="register">
+                <Icon type="log-out"></Icon>
+                注册
+              </MenuItem>
+            </div>
+            <div v-else>
+              <div @click="showMessage">
+                <MenuItem name="message">
+                  <Tooltip :content="msgCount > 0 ? '有' + msgCount + '条未读消息' : '无未读消息'" placement="bottom">
+                    <Badge :count="msgCount" dot>
+                      <Icon type="ios-bell" :size="22"></Icon>
+                    </Badge>
+                  </Tooltip>
+                </MenuItem>
+              </div>
+              <MenuItem name="dropdown">
+                <Dropdown trigger="click">
+                  <a href="javascript:void(0)" :style="{color:'#f56a00'}">
+                    {{user.nickname}}
+                    <Icon type="arrow-down-b"></Icon>
+                  </a>
+                  <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small"/>
+                  <DropdownMenu slot="list">
+                    <DropdownItem><Icon type="ios-person-outline"></Icon>个人中心</DropdownItem>
+                    <div @click="logout">
+                      <DropdownItem><Icon type="log-out"></Icon>退出登录</DropdownItem>
+                    </div>
+                  </DropdownMenu>
+                </Dropdown>
+              </MenuItem>
+            </div>
           </div>
         </Menu>
       </Header>
@@ -50,27 +82,42 @@
 </template>
 
 <script>
-export default {
-  name: 'Index',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  import { mapState } from 'vuex'
+  import Cookies from 'js-cookie';
+  export default {
+    name: 'Index',
+    data () {
+      return {
+        msgCount:100
+      }
+    },
+    computed: mapState({
+      // 箭头函数可使代码更简练
+      token:'token',
+
+      // 传字符串参数 'count' 等同于 `state => state.count`
+      user: 'user',
+
+    }),
+    methods:{
+      logout(){
+        Cookies.remove('user')
+        Cookies.remove('token')
+        this.$store.commit('logout')
+      },
+      showMessage () {
+        //util.openNewPage(this, 'message_index');
+        this.$router.push({
+          name: 'message_index'
+        });
+      }
     }
-  },
-  methods:{
-    getHttp(){
-      this.axios.get('/api/user/all/1/0').then((res) => {
-        console.log(res.data)
-      }).catch(function(err){
-        console.log(err)
-      })
-    }
-  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  ivu-layout-header{background:#495060;padding:0 50px;height:64px;line-height:64px}
   .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;
@@ -79,19 +126,24 @@ export default {
     overflow: hidden;
   }
   .layout-logo{
-    width: 100px;
-    height: 30px;
-    background: #5b6270;
+    font-size: 18px;
+    width: 230px;
+    height: 40px;
     border-radius: 3px;
     float: left;
-    position: relative;
-    top: 15px;
     left: 20px;
+    text-align: center;
+    color:red;
+    font-family: '隶书';
+  }
+  .layout-menu{
+    display: flex;
+    justify-content: space-between;
+    padding:0 50px;
   }
   .layout-nav{
-    width: 420px;
-    margin: 0 auto;
-    margin-right: 20px;
+    text-align: right;
+    width:400px;
   }
   .layout-footer-center{
     text-align: center;
