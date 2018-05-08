@@ -49,13 +49,17 @@
         <!--<table tableName="found" domainObjectName="Found" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="lost" domainObjectName="Lost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="thanks_letter" domainObjectName="ThanksLetter" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="user_found" domainObjectName="UserFound" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="user_lost" domainObjectName="UserLost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="%">
-            <!--mysql 配置-->
+        <table tableName="user_found" domainObjectName="UserFound" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" />
-            <!--oracle 配置-->
-            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
         </table>
+        <table tableName="user_lost" domainObjectName="UserLost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" />
+        </table>
+        <!--<table tableName="%">-->
+            <!--&lt;!&ndash;mysql 配置&ndash;&gt;-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+            <!--&lt;!&ndash;oracle 配置&ndash;&gt;-->
+            <!--&lt;!&ndash;<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>&ndash;&gt;-->
+        <!--</table>-->
     </context>
 </generatorConfiguration>

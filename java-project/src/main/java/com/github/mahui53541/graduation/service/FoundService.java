@@ -2,6 +2,7 @@ package com.github.mahui53541.graduation.service;
 
 import com.github.mahui53541.graduation.mapper.FoundMapper;
 import com.github.mahui53541.graduation.model.Found;
+import com.github.mahui53541.graduation.vo.FoundUserVO;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageRowBounds;
 import org.apache.ibatis.session.RowBounds;
@@ -29,5 +30,14 @@ public class FoundService extends BaseService<FoundMapper,Found> {
         PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
         PageInfo<Found> p=new PageInfo(foundMapper.queryByPage(rowBounds));
         return p;
+    }
+
+    /**
+     * 获取详情
+     * @param id
+     * @return
+     */
+    public FoundUserVO getFoundDetail(Integer id){
+        return foundMapper.getFoundDetail(id);
     }
 }

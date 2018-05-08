@@ -21,7 +21,15 @@
     <result column="found_description" jdbcType="LONGVARCHAR" property="foundDescription" />
     <result column="label" jdbcType="VARCHAR" property="label" />
   </resultMap>
+  <resultMap id="foundUserMap" type="com.github.mahui53541.graduation.vo.FoundUserVO" extends="BaseResultMap">
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+  </resultMap>
   <select id="queryByPage" resultMap="BaseResultMap">
     SELECT * FROM found WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
+  </select>
+  <select id="getFoundDetail" resultMap="foundUserMap">
+    SELECT f.*,username,nickname,phone_number FROM found  f LEFT JOIN user u ON f.user_id=u.id WHERE f.id=#{id} AND has_reviewed=1 AND has_passed=1 AND f.deleted=false
   </select>
 </mapper>

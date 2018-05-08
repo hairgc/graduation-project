@@ -19,7 +19,8 @@ import router from '../router'
 axios.interceptors.request.use(
   config => {
     config.headers = {
-      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      //'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      'Content-Type': 'application/json;charset=UTF-8'
     };
     // 在发送请求之前做某件事
     if (
@@ -28,13 +29,14 @@ axios.interceptors.request.use(
       config.method === "delete"
     ) {
       // 序列化
-      config.data = qs.stringify(config.data);
+      //config.data = qs.stringify(config.data);
     }
     // 若是有做鉴权token , 就给头部带上token
     if (localStorage.token) {
       config.headers.Authorization = localStorage.token;
     }
     console.log('bef:request:success')
+    console.log(config)
     return config;
   },
   err => {

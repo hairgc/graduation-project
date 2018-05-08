@@ -1,6 +1,7 @@
 package com.github.mahui53541.graduation.controller;
 
 import com.github.mahui53541.graduation.service.FoundService;
+import com.github.mahui53541.graduation.vo.FoundUserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +31,15 @@ public class FoundController {
     @RequestMapping(value = "/{pageNum}/{pageSize}")
     public Object findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
         return foundService.queryByPage(pageNum,pageSize);
+    }
+
+    /**
+     * 查询失物招领详情信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}")
+    public FoundUserVO getFoundDetail(@PathVariable("id") int id){
+        return foundService.getFoundDetail(id);
     }
 }

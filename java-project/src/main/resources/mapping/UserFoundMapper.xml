@@ -10,5 +10,7 @@
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="is_confirm" jdbcType="BIT" property="isConfirm" />
     <result column="submit_datetime" jdbcType="TIMESTAMP" property="submitDatetime" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="is_read" jdbcType="BIT" property="isRead" />
   </resultMap>
 </mapper>

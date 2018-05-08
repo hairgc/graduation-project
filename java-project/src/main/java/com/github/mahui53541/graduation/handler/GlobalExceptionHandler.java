@@ -31,6 +31,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity  exception(HttpServletRequest req, Exception e) throws Exception {
-        return CustomResponse.buildResponse(603,"password error",null).toResponseEntity();
+        return CustomResponse.buildResponse(603,"something error",null).toResponseEntity();
     }
 }

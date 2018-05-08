@@ -38,6 +38,7 @@
       <Spin size="large" fix v-if="spinShow"></Spin>
       <Page :style="{textAlign:'center',marginTop:'10px'}":total="total" :page-size-opts="page_opts" :page-size="page_size" v-on:on-change="pageChange"
             v-on:on-page-size-change="pageSizeChange" show-sizer show-total show-elevator></Page>
+      <BackTop></BackTop>
     </div>
 </template>
 
