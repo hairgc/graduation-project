@@ -1,16 +1,17 @@
 package com.github.mahui53541.graduation.security.jwt;
 
+import com.github.mahui53541.graduation.model.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * JwtToken工具类
@@ -25,6 +26,7 @@ public class JwtTokenUtil implements Serializable {
     private static final String CLAIM_KEY_USERNAME = "sub";
     private static final String CLAIM_KEY_CREATED = "created";
     private static final String CLAIM_KEY_AUTHORITIES = "authorities";
+    private static final String CLAIM_KEY_USERDETAIL="userdetail";
     @Value("${jwt.secret}")
     private String secret;
 
@@ -46,7 +48,36 @@ public class JwtTokenUtil implements Serializable {
         }
         return username;
     }
+    /**
+     * 从Token中获取用户
+     * @param token
+     * @return
+     */
+    public UserDetails getUserDetailsFromToken(String token) {
+        try {
+            final Claims claims = getClaimsFromToken(token);
+            LinkedHashMap map= (LinkedHashMap) claims.get(CLAIM_KEY_USERDETAIL);
+            List authorities=(ArrayList<LinkedHashMap>)map.get("authorities");
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            for(Object authority:authorities){
+                grantedAuthorities.add(new SimpleGrantedAuthority((String) ((LinkedHashMap)authority).get("authority")));
+            }
+            JwtUser userDetails=new JwtUser(
+                    (Integer) map.get("id"),
+                    (String) map.get("username"),
+                    (String) map.get("password"),
+                    (Boolean) map.get("sex"),
+                    (String) map.get("phoneNumber"),
+                    (String) map.get("nickname"),
+                    (Boolean)map.get("deleted"),
+                    grantedAuthorities
+            );
+            return userDetails;
+        } catch (Exception e) {
+            return null;
+        }
 
+    }
     /**
      * 从Token获取失效日期
      * @param token
@@ -106,6 +137,7 @@ public class JwtTokenUtil implements Serializable {
         JwtUser user = (JwtUser) userDetails;
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
+        claims.put(CLAIM_KEY_USERDETAIL,userDetails);
         claims.put(CLAIM_KEY_CREATED, new Date());
         claims.put(CLAIM_KEY_AUTHORITIES,user.getAuthorities());
         return generateToken(claims);
@@ -144,14 +176,9 @@ public class JwtTokenUtil implements Serializable {
     /**
      * 验证Token
      * @param token
-     * @param userDetails
      * @return
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        JwtUser user = (JwtUser) userDetails;
-        final String username = getUsernameFromToken(token);
-        return (
-                username.equals(user.getUsername())
-                        && !isTokenExpired(token));
+    public Boolean validateToken(String token) {
+        return !isTokenExpired(token);
     }
 }

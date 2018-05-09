@@ -28,8 +28,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Version: 1.0
  */
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled=true)
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //自定义JwtUserDetailsService实现
     @Autowired
@@ -88,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/auth/**").permitAll()//登陆注册
 //                .antMatchers(HttpMethod.GET,"/cart").permitAll()//购物车页面
 //                .antMatchers(HttpMethod.GET,"/orders").permitAll()//购物车页面
-//                .antMatchers(HttpMethod.GET,"/orders/detail").permitAll()//购物车页面
+                .antMatchers(HttpMethod.GET,"/user/found/message/**").authenticated()//购物车页面
                 .anyRequest().permitAll()
                 .and()
                 //禁用缓存

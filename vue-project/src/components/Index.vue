@@ -30,15 +30,15 @@
               </MenuItem>
             </div>
             <div v-else>
-              <div @click="showMessage">
+              <router-link to="/message">
                 <MenuItem name="message">
-                  <Tooltip :content="msgCount > 0 ? '有' + msgCount + '条未读消息' : '无未读消息'" placement="bottom">
-                    <Badge :count="msgCount" dot>
+                  <Tooltip :content="messageCount > 0 ? '有' + messageCount + '条未读消息' : '无未读消息'" placement="bottom">
+                    <Badge :count="messageCount" dot>
                       <Icon type="ios-bell" :size="22"></Icon>
                     </Badge>
                   </Tooltip>
                 </MenuItem>
-              </div>
+              </router-link>
               <MenuItem name="dropdown">
                 <Dropdown trigger="click">
                   <a href="javascript:void(0)" :style="{color:'#f56a00'}">
@@ -88,7 +88,7 @@
     name: 'Index',
     data () {
       return {
-        msgCount:100
+
       }
     },
     computed: mapState({
@@ -98,6 +98,8 @@
       // 传字符串参数 'count' 等同于 `state => state.count`
       user: 'user',
 
+      messageCount:'messageCount'
+
     }),
     methods:{
       logout(){
@@ -105,11 +107,25 @@
         Cookies.remove('token')
         this.$store.commit('logout')
       },
-      showMessage () {
-        //util.openNewPage(this, 'message_index');
-        this.$router.push({
-          name: 'message_index'
-        });
+      getMessageCount(){
+        this.axios.get('/api/user/found/countmessage/'+this.user.id).then((res) => {
+            this.$store.commit('setMessageCount', res.data);
+        }).catch(function (err) {
+          console.log(err)
+        })
+      }
+    },
+    created: function () {
+      if(this.user!=null){
+        this.getMessageCount()
+      }
+
+    },
+    watch: {
+      '$route' (to, from) {
+        if(this.user!=null){
+          this.getMessageCount()
+        }
       }
     }
 }

@@ -38,7 +38,7 @@ pagehelper:
 logging:
   level:
     com.github.mahui53541.graduation.mapper: DEBUG
-
+    org.springframework.security: DEBUG
 #Jwt
 jwt:
   header: Authorization

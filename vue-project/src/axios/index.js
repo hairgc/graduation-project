@@ -4,7 +4,7 @@
 import axios from 'axios';
 import qs from 'qs'
 import router from '../router'
-
+import Cookies from 'js-cookie';
 // const Axios = axios.create({
 //   baseURL: "/", // 因为我本地做了反向代理
 //   timeout: 10000,
@@ -32,8 +32,8 @@ axios.interceptors.request.use(
       //config.data = qs.stringify(config.data);
     }
     // 若是有做鉴权token , 就给头部带上token
-    if (localStorage.token) {
-      config.headers.Authorization = localStorage.token;
+    if (Cookies.get('token')) {
+      config.headers.Authorization = Cookies.get('token');
     }
     console.log('bef:request:success')
     console.log(config)
@@ -59,11 +59,14 @@ axios.interceptors.response.use(
           // store.dispatch('logout');
           console.log("401");
           break;
+        case 403:
+          router.push('/403');
+          break;
         case 404:
-          router.push('/Error/Error404');
+          router.push('/404');
           break;
         case 500:
-          router.push('/Error/Error500');
+          router.push('/500');
       }
 
     }

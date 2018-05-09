@@ -60,7 +60,7 @@
         </Row>
         <Row class="content">
           <Col span="24" class="content-name">
-            <Button type="warning" long @click="clickButton">是我的，点我联系一下！</Button>
+            <Button type="warning" long @click="clickButton" :disabled="found.isFound">是我的，点我联系一下！</Button>
           </Col>
         </Row>
       </Col>

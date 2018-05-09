@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     user:Cookies.getJSON('user'),
-    token:Cookies.get('token')
+    token:Cookies.get('token'),
+    messageCount:0
   },
   mutations: {
     login(state, payload) {
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     logout(state) {
       state.user = null
       state.token = null
+    },
+    setMessageCount(state, payload){
+      state.messageCount=payload;
     }
   },
   actions: {
