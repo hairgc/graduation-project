@@ -5,8 +5,6 @@ import com.github.mahui53541.graduation.service.UserFoundService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -24,8 +22,22 @@ public class UserFoundController {
     private UserFoundService userFoundService;
 
     @PostMapping(value = "")
+    @PreAuthorize("hasRole('USER')")
     public Object add(@RequestBody UserFound userFound){
         return ResponseEntity.ok(userFoundService.insert(userFound));
+    }
+
+    /**
+     * 确认
+     * @param messageId
+     * @param type
+     * @return
+     */
+    @GetMapping(value = "/confirmmessage/{messageId}/{type}")
+    @PreAuthorize("hasRole('USER')")
+    public Object conformMessage(@PathVariable("messageId") int messageId,
+                              @PathVariable("type") int type){
+        return ResponseEntity.ok(userFoundService.confirmMessage(messageId,type));
     }
 
     /**

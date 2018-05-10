@@ -30,7 +30,7 @@
             欢迎登录
           </p>
           <div class="form-con">
-            <Form ref="loginForm" :model="form" :rules="rules">
+            <Form ref="form" :model="form" :rules="rules">
               <FormItem prop="username">
                 <Input v-model="form.username" placeholder="请输入用户名"/>
                 <span slot="prepend">

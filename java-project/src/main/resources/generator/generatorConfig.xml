@@ -48,13 +48,15 @@
         <!--<table tableName="admin" domainObjectName="Admin" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="found" domainObjectName="Found" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <!--<table tableName="lost" domainObjectName="Lost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <!--<table tableName="thanks_letter" domainObjectName="ThanksLetter" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
-        <table tableName="user_found" domainObjectName="UserFound" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+        <table tableName="thanks_letter" domainObjectName="ThanksLetter" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" />
         </table>
-        <table tableName="user_lost" domainObjectName="UserLost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="Mysql" />
-        </table>
+        <!--<table tableName="user_found" domainObjectName="UserFound" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
+        <!--<table tableName="user_lost" domainObjectName="UserLost" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+            <!--<generatedKey column="id" sqlStatement="Mysql" />-->
+        <!--</table>-->
         <!--<table tableName="%">-->
             <!--&lt;!&ndash;mysql 配置&ndash;&gt;-->
             <!--<generatedKey column="id" sqlStatement="Mysql" />-->

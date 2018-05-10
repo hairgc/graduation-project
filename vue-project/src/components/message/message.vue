@@ -49,7 +49,8 @@
             </div>
           </div>
           <div class="mes-button-con">
-            <Button type="success" long :disabled="mes.isConfirm">{{mes.type==1?'已沟通确认，他（她）是失主':'已经联系他（她）找回失物'}}</Button>
+            <Button @click="confirmClick" type="success" long :disabled="mes.isConfirm">{{mes.type==1?'已沟通确认，他（她）是失主':'已经联系他（她）找回失物'}}</Button>
+            <Button v-if="mes.type==2" icon="heart" @click="thanksLetter" type="warning" :disabled="!mes.isConfirm">感谢信</Button>
           </div>
           <div class="message-content-body">
             <p class="message-content">{{ mes.content }}</p>
@@ -112,6 +113,7 @@
                     this.mes = params.row;
                     this.mes.content=params.row.content!=null&&params.row.content.length>0?params.row.content:'留言者没写什么哦！'
                     this.mes.submitDatetime=this.formatDate(params.row.submitDatetime)
+                    this.mes.index=params.index;
                   }
                 }
               }, params.row.content!=null&&params.row.content.length>0?params.row.content:'留言者没写什么哦！');
@@ -203,6 +205,31 @@
         }).catch(function (err) {
           console.log(err)
         })
+      },
+      confirmClick(){
+        this.$Modal.confirm({
+          title: '确认提示',
+          content: '<p>请您再次确认自己的操作！</p>',
+          onOk: () => {
+            this.axios.get('/api/user/found/confirmmessage/'+this.mes.id+"/"+this.mes.type).then((res) => {
+              this.$Message.info('操作成功！');
+              if(this.currentMessageType=='unread'){
+                this.mes.isConfirm=true;
+                this.currentMesList[this.mes.index].isConfirm=true;
+                this.unreadMesList[this.mes.index].isConfirm=true;
+              }else{
+                this.mes.isConfirm=true;
+                this.currentMesList[this.mes.index].isConfirm=true;
+                this.hasreadMesList[this.mes.index].isConfirm=true;
+              }
+            }).catch(function (err) {
+              this.$Message.error('操作失败！');
+            })
+          }
+        });
+      },
+      thanksLetter(){
+        this.$router.push({ path: 'text-editor', query: { lostId:this.mes.foreignId,thanksId:this.mes.userId}})
       },
       formatDate(time) {
         let date = new Date(time);

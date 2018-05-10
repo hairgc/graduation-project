@@ -39,6 +39,14 @@ export const page500 = {
   name: 'error-500',
   component: () => import('@/components/error-page/500.vue')
 };
+export const textEditor = {
+  path: '/text-editor',
+  meta: {
+    title: '500-服务端错误'
+  },
+  name: 'text-editor',
+  component: () => import('@/components/thanks-letter/text-editor.vue')
+}
 
 export const appRouter=[
     {
@@ -70,6 +78,7 @@ export const appRouter=[
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
   loginRouter,
+  textEditor,
   ...appRouter,
   page500,
   page403,
