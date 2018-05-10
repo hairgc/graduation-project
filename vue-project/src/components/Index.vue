@@ -61,11 +61,7 @@
       <Content :style="{margin: '88px 20px 0',padding: '0 50px'}">
         <Layout>
           <Sider hide-trigger :style="{background: '#fff',position: 'fixed',width:'100%'}">
-            <Card>
-              <div style="min-height: 450px;">
-                thanks
-              </div>
-            </Card>
+                <letter-list></letter-list>
           </Sider>
           <Content :style="{marginLeft: '210px', minHeight: '450px', background: '#fff'}">
             <Card>
@@ -84,8 +80,12 @@
 <script>
   import { mapState } from 'vuex'
   import Cookies from 'js-cookie';
+  import letterList from './thanks-letter/letter-list';
   export default {
     name: 'Index',
+    components: {
+      letterList
+    },
     data () {
       return {
 
@@ -133,7 +133,6 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-  ivu-layout-header{background:#495060;padding:0 50px;height:64px;line-height:64px}
   .layout{
     border: 1px solid #d7dde4;
     background: #f5f7f9;

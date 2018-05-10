@@ -2,36 +2,40 @@
     <div>
       <Row :gutter="12">
         <Col :xs="12" :sm="8" :md="6" :lg="4" v-for="row,index in rows" :key="row.id" :style="{marginTop:'10px'}">
-          <Card>
-            <p slot="title">
-              {{row.foundName}}
-            </p>
-            <p class="label" v-if="row.label">
-              <Tag v-for="label in row.label.split('#')" :key="label" color="red">{{label}}</Tag>
-            </p>
-            <p v-else>
-              <Tag>暂无标签</Tag>
-            </p>
-            <p class="content">
-              {{row.foundDescription}}
-            </p>
-            <div class="tag">
-              <div>
-                <iSwitch size="large" :value="row.isFound" :disabled="true">
-                  <span slot="open">已找回</span>
-                  <span slot="close">寻找</span>
-                </iSwitch>
-              </div>
-              <div>
-                {{row.foundDatetime|formatDate}}
-              </div>
+          <Card :padding="0">
+            <div class="card-head">
+              <p class="card-head-inner">
+                {{row.foundName}}
+              </p>
             </div>
+            <div style="padding: 2px;">
+              <p class="label" v-if="row.label">
+                <Tag v-for="label in row.label.split('#')" :key="label" color="red">{{label}}</Tag>
+              </p>
+              <p v-else>
+                <Tag>暂无标签</Tag>
+              </p>
+              <p class="content">
+                {{row.foundDescription}}
+              </p>
+              <div class="tag">
+                <div>
+                  <iSwitch size="large" :value="row.isFound" :disabled="true">
+                    <span slot="open">已找回</span>
+                    <span slot="close">寻找</span>
+                  </iSwitch>
+                </div>
+                <div>
+                  {{row.foundDatetime|formatDate}}
+                </div>
+              </div>
 
-            <p>
-              <router-link :to="'/found/'+row.id">
-                <Button type="success" long>详情</Button>
-              </router-link>
-            </p>
+              <p>
+                <router-link :to="'/found/'+row.id">
+                  <Button type="success" long>详情</Button>
+                </router-link>
+              </p>
+            </div>
           </Card>
         </Col>
       </Row>
@@ -106,12 +110,27 @@
 </script>
 
 <style scoped>
-  /*.content{*/
-    /*display: -webkit-box;*/
-    /*-webkit-box-orient: vertical;*/
-    /*-webkit-line-clamp: 3;*/
-    /*overflow: hidden;*/
-  /*}*/
+  .card-head{
+    padding: 6px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    line-height: 1;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  .card-head-inner {
+    display: inline-block;
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    color: #3c763d;
+    font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   .content {
     position:relative;
     line-height:1.4em;

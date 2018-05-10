@@ -1,23 +1,44 @@
 <template>
-
+  <Card :padding="0">
+    <div class="card-head">
+      <Icon type="ios-heart"></Icon>
+      好人信箱
+      <Icon type="ios-email"></Icon>
+    </div>
+  <div style="padding:0 5px;margin-top: 0" >
+    <vue-seamless-scroll :data="items" :class-option="optionSingleHeightTime" class="seamless-warp">
+      <ul>
+        <li v-for="item in items" class="item">
+          <Card class="button" :padding="3">
+            <p class="title" v-text="item.name"></p>
+          </Card>
+        </li>
+      </ul>
+    </vue-seamless-scroll>
+  </div>
+  </Card>
 </template>
 
 <script>
+  import vueSeamlessScroll from 'vue-seamless-scroll'
   export default {
     name: "letter-list",
+    components: {
+      vueSeamlessScroll
+    },
     data() {
       return {
         animate: false,
         items: [
-          {name: "这里是感谢信一哈哈哈哈1"},
+          {name: "这里是感谢信一哈哈哈这里是感谢信一哈哈1"},
           {name: "这里是感谢信一哈哈哈哈2"},
-          {name: "这里是感谢信一哈哈哈哈3"},
+          {name: "这里是感谢信一哈哈这里是感谢信一哈哈哈3"},
           {name: "这里是感谢信一哈哈哈哈4"},
           {name: "这里是感谢信一哈哈哈哈5"},
           {name: "这里是感谢信一哈哈哈哈6"},
-          {name: "这里是感谢信一哈哈哈哈7"},
+          {name: "这里是感谢信一里是感谢信里是感谢信里是感谢信里是感谢信里是感谢信哈哈哈哈7"},
           {name: "这里是感谢信一哈哈哈哈8"},
-          {name: "这里是感谢信一哈哈哈哈9"},
+          {name: "这里是感谢信一哈哈哈这里是感谢信一哈哈9"},
           {name: "这里是感谢信一哈哈哈哈10"},
           {name: "这里是感谢信一哈哈哈哈11"},
           {name: "这里是感谢信一哈哈哈哈12"},
@@ -37,40 +58,52 @@
       }
     },
     created() {
-      setInterval(this.scroll, 1000)
+
+    },
+    computed: {
+      optionSingleHeightTime () {
+        return {
+          singleHeight: 60,
+          waitTime: 1500
+        }
+      }
     },
     methods: {
-      scroll() {
-        this.animate = true;    // 因为在消息向上滚动的时候需要添加css3过渡动画，所以这里需要设置true
-        setTimeout(() => {      //  这里直接使用了es6的箭头函数，省去了处理this指向偏移问题，代码也比之前简化了很多
-          this.items.push(this.items[0]);  // 将数组的第一个元素添加到数组的
-          this.items.shift();               //删除数组的第一个元素
-          this.animate = false;  // margin-top 为0 的时候取消过渡动画，实现无缝滚动
-        }, 500)
-      }
+
     }
   }
 </script>
 
 <style scoped>
-  *{
-    margin: 0 ;
-    padding: 0;
-  }
-  #box{
-    width: 300px;
-    height: 32px;
+  .seamless-warp {
+    height: 450px;
     overflow: hidden;
-    padding-left: 30px;
-    border: 1px solid black;
   }
-  .anim{
-    transition: all 0.5s;
-    margin-top: -30px;
+  .card-head{
+    text-align: center;
+    padding: 14px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    //background: #19be6b;
+    //border-bottom: 1px solid #e9eaec;
+    //padding: 14px 16px;
+    line-height: 1;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
   }
-  #con1 li{
-    list-style: none;
-    line-height: 30px;
-    height: 30px;
+  .item{
+    height: 60px;
+    padding: 2px 0;
+  }
+  .button{
+    height: 56px;
+    //border: 1px solid #2d8cf0;
+    line-height: 28px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
   }
 </style>
