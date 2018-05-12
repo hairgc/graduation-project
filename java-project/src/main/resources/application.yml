@@ -45,3 +45,9 @@ jwt:
   secret: mySecret
   expiration: 604800
   tokenHead: Bearer
+
+#七牛云Key
+qiniu:
+  accessKey: OKsVVJ9FZrIbw1XWc9O1sufLWgwFoHnqlCWgFoA_
+  secretKey: 30_z0MEguxIRY9sz1uIx1rw8LDwVA6z9-NflSb2Z
+  bucket: myblog

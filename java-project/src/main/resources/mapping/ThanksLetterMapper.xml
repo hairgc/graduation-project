@@ -6,7 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
-    <id column="editor_id" jdbcType="INTEGER" property="editorId" />
+    <result column="editor_id" jdbcType="INTEGER" property="editorId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="thanks_id" jdbcType="INTEGER" property="thanksId" />
     <result column="lost_id" jdbcType="INTEGER" property="lostId" />
@@ -15,4 +15,17 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
+  <resultMap id="ThanksLetterVOMap" extends="BaseResultMap" type="com.github.mahui53541.graduation.vo.ThanksLetterVO">
+    <result column="editor_name" jdbcType="VARCHAR" property="editorName" />
+    <result column="thanks_name" jdbcType="VARCHAR" property="thanksName" />
+  </resultMap>
+  <select id="query" resultMap="BaseResultMap">
+    SELECT * FROM thanks_letter WHERE deleted=0 ORDER BY submit_datetime DESC limit 50;
+  </select>
+  <select id="getById" resultMap="ThanksLetterVOMap">
+    SELECT t.*,u1.nickname as editor_name,u2.nickname as thanks_name FROM thanks_letter t
+      LEFT JOIN user u1 ON t.editor_id=u1.id
+      LEFT JOIN user u2 ON t.thanks_id=u2.id
+      WHERE t.deleted=0 AND t.id=#{id}
+  </select>
 </mapper>

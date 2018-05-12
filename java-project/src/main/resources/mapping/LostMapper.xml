@@ -19,5 +19,6 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="lost_description" jdbcType="LONGVARCHAR" property="lostDescription" />
+    <result column="submit_datetime" jdbcType="TIMESTAMP" property="submitDatetime" />
   </resultMap>
 </mapper>

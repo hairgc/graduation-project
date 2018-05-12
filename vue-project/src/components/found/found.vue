@@ -1,10 +1,15 @@
 <template>
     <div>
+      <Search @on-search="search"
+              :initKeyword="searchParams.keyword"
+              :init-start-date="(searchParams.startDate==null|| searchParams.startDate.length==0)?null:Number.parseInt(searchParams.startDate)"
+              :init-end-date="(searchParams.endDate==null|| searchParams.endDate.length==0)?null:Number.parseInt(searchParams.endDate)"></Search>
       <Row :gutter="12">
         <Col :xs="12" :sm="8" :md="6" :lg="4" v-for="row,index in rows" :key="row.id" :style="{marginTop:'10px'}">
           <Card :padding="0">
             <div class="card-head">
               <p class="card-head-inner">
+                <Icon type="ios-heart-outline"></Icon>
                 {{row.foundName}}
               </p>
             </div>
@@ -40,16 +45,24 @@
         </Col>
       </Row>
       <Spin size="large" fix v-if="spinShow"></Spin>
-      <Page :style="{textAlign:'center',marginTop:'10px'}":total="total" :page-size-opts="page_opts" :page-size="page_size" v-on:on-change="pageChange"
+      <Page :style="{textAlign:'center',marginTop:'10px'}":total="total" :page-size-opts="page_opts" :current="page" :page-size="page_size" v-on:on-change="pageChange"
             v-on:on-page-size-change="pageSizeChange" show-sizer show-total show-elevator></Page>
       <BackTop></BackTop>
+
+      <div class="add-button">
+        <Button @click="addFound" type="warning" icon="plus-round">发布</Button>
+      </div>
     </div>
 </template>
 
 <script>
   import {formatDate} from './../../util/date.js';
+  import Search from '../search/search';
     export default {
       name: "found",
+      components:{
+        Search
+      },
       data(){
         return{
           total:100,
@@ -57,7 +70,8 @@
           page:1,
           page_size:20,
           page_opts:[20,50,80],
-          rows:[]
+          rows:[],
+          searchParams:{}
         }
       },
       computed:{
@@ -80,29 +94,55 @@
         },
         pageChange:function (e) {
           this.page=e
-          this.$router.push({ name: 'found', params: { page: this.page,rows:this.page_size }})
+          this.$router.push({
+            name: 'found',
+            params: { page: this.page,rows:this.page_size },
+            query:this.searchParams
+          })
         },
         pageSizeChange:function (e) {
           this.page_size=e
-          this.$router.push({ name: 'found', params: { page: this.page,rows:this.page_size }})
+          this.$router.push({
+            name: 'found',
+            params: { page: this.page,rows:this.page_size },
+            query:this.searchParams
+          })
+        },
+        search(params){
+          this.searchParams=params
+          this.$router.push({
+            name: 'found',
+            params: { page: 1,rows:20 },
+            query:this.searchParams
+          })
         },
         getFound:function () {
           this.spinShow=true
-          this.axios.get('/api/found/'+this.page+'/'+this.page_size).then((res) => {
+          this.axios.get('/api/found/'+this.page+'/'+this.page_size, {
+            params:this.searchParams
+          }).then((res) => {
             this.rows=res.data.list;
             this.total=res.data.total;
             this.spinShow=false
           }).catch(function(err){
             console.log(err)
           })
+        },
+        addFound(){
+          this.$router.push({
+            name:"found-add"
+          })
         }
       },
       created: function () {
         this.setPage(this.$route.params);
+        this.searchParams=this.$route.query
         this.getFound()
       },
       watch: {
         '$route' (to, from) {
+          this.setPage(this.$route.params);
+          this.searchParams=this.$route.query
           this.getFound()
         }
       }
@@ -156,5 +196,10 @@
     margin: 5px 0;
     color: darkgrey;
     font-size: 11px;
+  }
+  .add-button{
+    position: fixed;
+    top:150px;
+    right: 0;
   }
 </style>

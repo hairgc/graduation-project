@@ -5,10 +5,7 @@ import com.github.mahui53541.graduation.service.ThanksLetterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * java类简单作用描述
@@ -28,5 +25,15 @@ public class ThanksLetterController {
     @PreAuthorize("hasRole('USER')")
     public Object add(@RequestBody ThanksLetter thanksLetter){
         return ResponseEntity.ok(thanksLetterService.insert(thanksLetter));
+    }
+
+    @GetMapping(value = "")
+    public Object get(){
+        return ResponseEntity.ok(thanksLetterService.query());
+    }
+
+    @GetMapping(value = "/{id}")
+    public Object getDetail(@PathVariable("id") int id){
+        return ResponseEntity.ok(thanksLetterService.getById(id));
     }
 }

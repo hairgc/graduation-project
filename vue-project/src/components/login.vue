@@ -108,7 +108,7 @@
     methods: {
       handleSubmit () {
         var that=this;
-        this.$refs.loginForm.validate((valid) => {
+        this.$refs.form.validate((valid) => {
           if (valid) {
             this.axios.get('/api/auth/login',
               {

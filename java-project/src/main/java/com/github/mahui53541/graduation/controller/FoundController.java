@@ -1,12 +1,19 @@
 package com.github.mahui53541.graduation.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.mahui53541.graduation.model.Found;
 import com.github.mahui53541.graduation.service.FoundService;
 import com.github.mahui53541.graduation.vo.FoundUserVO;
+import com.github.mahui53541.graduation.vo.FoundVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
+import java.util.Map;
 
 /**
  * java类简单作用描述
@@ -23,14 +30,27 @@ public class FoundController {
     private FoundService foundService;
 
     /**
+     * 发布
+     * @return
+     * @RequestParam(name = "file",required = false) MultipartFile file,
+     */
+    @PostMapping(value = "")
+    public Object postFound(@RequestBody FoundVO foundVO){
+        return ResponseEntity.ok(foundService.postFound(foundVO));
+    }
+    /**
      * 查询失物招领信息
      * @param pageNum
      * @param pageSize
      * @return
      */
-    @RequestMapping(value = "/{pageNum}/{pageSize}")
-    public Object findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
-        return foundService.queryByPage(pageNum,pageSize);
+    @GetMapping(value = "/{pageNum}/{pageSize}")
+    public Object findByPage(@PathVariable("pageNum") int pageNum,
+                             @PathVariable("pageSize") int pageSize,
+                             @RequestParam(name = "keyword",required = false) String keyword,
+                             @RequestParam(name = "startDate",required = false)Date startDate,
+                             @RequestParam(name = "endDate",required = false)Date endDate){
+        return foundService.queryByPage(pageNum,pageSize,keyword,startDate,endDate);
     }
 
     /**
@@ -38,7 +58,7 @@ public class FoundController {
      * @param id
      * @return
      */
-    @RequestMapping(value = "/{id}")
+    @GetMapping(value = "/{id}")
     public FoundUserVO getFoundDetail(@PathVariable("id") int id){
         return foundService.getFoundDetail(id);
     }

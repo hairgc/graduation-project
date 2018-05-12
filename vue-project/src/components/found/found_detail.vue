@@ -42,7 +42,7 @@
     <Row>
       <Col span="12" style="padding: 10px">
         <Card>
-          <img v-if="found.foundPicture" :src="found.foundPicture" class="image"/>
+          <img v-if="found.foundPicture" :src="'http://images.mahui53541.com/'+found.foundPicture" class="image"/>
           <img v-else src="../../assets/no_picture.png" class="image"/>
         </Card>
       </Col>

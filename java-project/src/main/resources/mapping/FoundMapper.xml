@@ -20,6 +20,7 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
     <result column="found_description" jdbcType="LONGVARCHAR" property="foundDescription" />
     <result column="label" jdbcType="VARCHAR" property="label" />
+    <result column="submit_datetime" jdbcType="TIMESTAMP" property="submitDatetime" />
   </resultMap>
   <resultMap id="foundUserMap" type="com.github.mahui53541.graduation.vo.FoundUserVO" extends="BaseResultMap">
     <result column="username" jdbcType="VARCHAR" property="username" />
@@ -27,7 +28,18 @@
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
   <select id="queryByPage" resultMap="BaseResultMap">
-    SELECT * FROM found WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
+    SELECT * FROM found
+      WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
+      <if test="keyword != null and keyword !=''">
+        AND MATCH (label,found_name,found_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
+      </if>
+    <if test="startDate!=null">
+      AND found_datetime &gt;= #{startDate}
+    </if>
+    <if test="endDate!=null">
+      AND found_datetime &lt;= #{endDate}
+    </if>
+      ORDER BY submit_datetime DESC
   </select>
   <select id="getFoundDetail" resultMap="foundUserMap">
     SELECT f.*,username,nickname,phone_number FROM found  f LEFT JOIN user u ON f.user_id=u.id WHERE f.id=#{id} AND has_reviewed=1 AND has_passed=1 AND f.deleted=false

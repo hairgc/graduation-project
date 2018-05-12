@@ -18,10 +18,14 @@ import Cookies from 'js-cookie';
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
-    config.headers = {
-      //'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-      'Content-Type': 'application/json;charset=UTF-8'
-    };
+    if(config.headers!=null&&config.headers['Content-Type']!=null){
+
+    }else{
+      config.headers = {
+        //'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        'Content-Type': 'application/json;charset=UTF-8'
+      };
+    }
     // 在发送请求之前做某件事
     if (
       config.method === "post" ||
@@ -36,7 +40,6 @@ axios.interceptors.request.use(
       config.headers.Authorization = Cookies.get('token');
     }
     console.log('bef:request:success')
-    console.log(config)
     return config;
   },
   err => {

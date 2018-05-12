@@ -4,6 +4,26 @@ import java.util.Date;
 import javax.persistence.*;
 
 public class Found {
+    public Found() {
+    }
+
+    public Found(String foundName, String foundPicture, Boolean setFalseClaim, Date foundDatetime, Date expiryDatetime, Boolean isFound, Date foundLostDatetime, Integer userId, Integer adminId, Boolean hasReviewed, Boolean hasPassed, Boolean deleted, String foundDescription, String label) {
+        this.foundName = foundName;
+        this.foundPicture = foundPicture;
+        this.setFalseClaim = setFalseClaim;
+        this.foundDatetime = foundDatetime;
+        this.expiryDatetime = expiryDatetime;
+        this.isFound = isFound;
+        this.foundLostDatetime = foundLostDatetime;
+        this.userId = userId;
+        this.adminId = adminId;
+        this.hasReviewed = hasReviewed;
+        this.hasPassed = hasPassed;
+        this.deleted = deleted;
+        this.foundDescription = foundDescription;
+        this.label = label;
+    }
+
     /**
      * 主键ID
      */
@@ -90,6 +110,12 @@ public class Found {
 
     @Column(name = "label")
     private String label;
+
+    /**
+     * 提交时间
+     */
+    @Column(name = "submit_datetime")
+    private Date submitDatetime;
 
     /**
      * 获取主键ID
@@ -349,5 +375,23 @@ public class Found {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+
+    /**
+     * 获取提交时间
+     *
+     * @return submit_datetime - 提交时间
+     */
+    public Date getSubmitDatetime() {
+        return submitDatetime;
+    }
+
+    /**
+     * 设置提交时间
+     *
+     * @param submitDatetime 提交时间
+     */
+    public void setSubmitDatetime(Date submitDatetime) {
+        this.submitDatetime = submitDatetime;
     }
 }

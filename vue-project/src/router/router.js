@@ -1,7 +1,7 @@
 import Index from '@/components/Index'
 import lost from '@/components/lost/lost';
 import found from '@/components/found/found';
-import login from  '@/components/login'
+import login from '@/components/login'
 import foundDetail from '@/components/found/found_detail';
 
 
@@ -11,7 +11,7 @@ export const loginRouter = {
   meta: {
     title: 'Login - 登录'
   },
-  component:login
+  component: login
 };
 export const page404 = {
   path: '/*',
@@ -48,32 +48,43 @@ export const textEditor = {
   component: () => import('@/components/thanks-letter/text-editor.vue')
 }
 
-export const appRouter=[
-    {
-      path: '/',
-      name: 'Index',
-      component: Index,
-      redirect: '/found/1/20',
-      children: [
-        {
-          // 当 /user/:id/profile 匹配成功，
-          // UserProfile 会被渲染在 User 的 <router-view> 中
-          name:'lost',
-          path: 'lost/:page/:rows',
-          component: lost
-        },{
-          name:'found',
-          path: 'found/:page/:rows',
-          component: found
-        },{
-          path:'/found/:id',
-          name:'foundDetail',
-          component:foundDetail
-        },
-        { path: 'message', title: '消息中心', name: 'message', component: () => import('@/components/message/message.vue') }
-      ]
-    },
-  ]
+export const appRouter = [
+  {
+    path: '/',
+    name: 'Index',
+    component: Index,
+    redirect: '/found/1/20',
+    children: [
+      {
+        // 当 /user/:id/profile 匹配成功，
+        // UserProfile 会被渲染在 User 的 <router-view> 中
+        name: 'lost',
+        path: 'lost/:page/:rows',
+        component: lost
+      }, {
+        name: 'found',
+        path: 'found/:page/:rows',
+        component: found
+      }, {
+        path: '/found/:id',
+        name: 'foundDetail',
+        component: foundDetail
+      },
+      {path: 'message', title: '消息中心', name: 'message', component: () => import('@/components/message/message.vue')},
+      {
+        path: 'letter/:id',
+        title: '感谢信',
+        name: 'letter',
+        component: () => import('@/components/thanks-letter/letter-detail.vue')
+      },
+      {
+        path: '/post/found',
+        name: 'found-add',
+        component: () => import('@/components/found/found-add.vue')
+      }
+    ]
+  },
+]
 
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [

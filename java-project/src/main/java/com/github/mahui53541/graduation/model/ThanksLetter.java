@@ -15,7 +15,6 @@ public class ThanksLetter {
     /**
      * 感谢人Id
      */
-    @Id
     @Column(name = "editor_id")
     private Integer editorId;
 

@@ -25,7 +25,6 @@ public class UserFoundService extends BaseService<UserFoundMapper,UserFound> {
         return userFoundMapper.getMessage(isRead,userId);
     }
 
-
     /**
      * 确认
      * @param messageId
