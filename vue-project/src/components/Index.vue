@@ -24,10 +24,12 @@
                   登录
                 </MenuItem>
               </router-link>
-              <MenuItem name="register">
-                <Icon type="log-out"></Icon>
-                注册
-              </MenuItem>
+              <router-link to="/register">
+                <MenuItem name="register">
+                  <Icon type="log-out"></Icon>
+                  注册
+                </MenuItem>
+              </router-link>
             </div>
             <div v-else>
               <router-link to="/message">
@@ -47,7 +49,10 @@
                   </a>
                   <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small"/>
                   <DropdownMenu slot="list">
-                    <DropdownItem><Icon type="ios-person-outline"></Icon>个人中心</DropdownItem>
+                    <router-link to="/space">
+                      <DropdownItem><Icon type="ios-person-outline"></Icon>个人中心</DropdownItem>
+                    </router-link>
+
                     <div @click="logout">
                       <DropdownItem><Icon type="log-out"></Icon>退出登录</DropdownItem>
                     </div>
@@ -58,7 +63,7 @@
           </div>
         </Menu>
       </Header>
-      <Content :style="{margin: '88px 20px 0',padding: '0 50px'}">
+      <Content :style="{margin: '70px 20px 0',padding: '0 50px'}">
         <Layout>
           <Sider hide-trigger :style="{background: '#fff',position: 'fixed',width:'100%'}">
                 <letter-list></letter-list>
@@ -105,7 +110,13 @@
       logout(){
         Cookies.remove('user')
         Cookies.remove('token')
-        this.$store.commit('logout')
+        this.$store.commit('logout');
+        this.$Notice.success({
+          title: '注销成功！'
+        });
+        this.$router.push({
+          name:'Index'
+        })
       },
       getMessageCount(){
         this.axios.get('/api/user/found/countmessage/'+this.user.id).then((res) => {

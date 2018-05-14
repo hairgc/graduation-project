@@ -66,6 +66,18 @@
       </Col>
     </Row>
     <Spin size="large" fix v-if="spinShow"></Spin>
+
+    <Modal v-model="submitMessageModal" :closable='false' :mask-closable=false :width="400">
+      <Form ref="formValidate" :model="msgForm"  label-position="right" :rules="ruleValidate">
+        <FormItem prop="message">
+          <Input type="textarea" :rows="4" :autofocus="true" v-model="msgForm.message" :placeholder="placeholder" ></Input>
+        </FormItem>
+      </Form>
+      <div slot="footer">
+        <Button type="text" @click="cancelSubmit">取消</Button>
+        <Button type="primary" :loading="saveLoading" @click="submitMessage">发送</Button>
+      </div>
+    </Modal>
   </div>
 
 </template>
@@ -80,9 +92,19 @@
         return{
           spinShow:true,
           id:null,
+          submitMessageModal:false,
+          saveLoading:false,
+          placeholder:'请输入你的留言,建议您详细说明丢失物品的外貌特征，以便拾取人判断...',
           hasClick:false,
           found:{},
-          message:''
+          msgForm:{
+            message:''
+          },
+          ruleValidate: {
+            message: [
+              {required: true, message: '留言不能为空', trigger: 'blur'}
+            ],
+          }
         }
       },
       computed:{
@@ -105,59 +127,59 @@
           this.axios.get('/api/found/'+this.id).then((res) => {
             this.spinShow=false
             this.found=res.data
+            if(this.found.setFalseClaim){
+              this.placeholder="'拾取人开启了防冒领设置，务必详细说明丢失物品的外貌特征，以便拾取人判断...',"
+            }
           }).catch(function(err){
             console.log(err)
           })
         },
-        submitMessage:function(){
-          this.spinShow=true
-          if(this.user!=null){
-            this.axios.post('/api/user/found',
-              {
-                foundId:this.id,
-                userId:this.user.id,
-                isConfirm:false,
-                content:this.message,
-                isRead:false,
-                submitDatetime:new Date().getTime()
-              }
-            ).then((res) => {
-              this.spinShow=false
-              console.log(res)
-            }).catch(function(err){
-              console.log(err)
-            })
-          }else{
-            this.$router.push({
-              name: 'login'
-            })
-          }
-
+        clickButton(){
+          this.submitMessageModal=true
         },
-        clickButton:function () {
-          this.$Modal.confirm({
-            render: (h) => {
-              return h('Input', {
-                props: {
-                  value: this.message,
-                  type:'textarea',
-                  rows:4,
-                  autofocus: true,
-                  placeholder: '请输入你的留言,建议您详细说明丢失物品的外貌特征，以便拾取人判断...'
-                },
-                on: {
-                  input: (val) => {
-                    this.message = val;
+        cancelSubmit () {
+          this.submitMessageModal = false;
+          this.$refs['formValidate'].resetFields();
+        },
+        submitMessage:function(){
+          this.$refs['formValidate'].validate((valid) => {
+            if (valid) {
+              this.spinShow=true
+              this.saveLoading=true
+              if(this.user!=null){
+                this.axios.post('/api/user/found',
+                  {
+                    foundId:this.id,
+                    userId:this.user.id,
+                    isConfirm:false,
+                    content:this.msgForm.message,
+                    isRead:false,
+                    submitDatetime:new Date().getTime()
                   }
-                }
-              })
-            },
-            okText: '提交',
-            onOk: () => {
-              this.submitMessage()
-            },
-            onCancel: () => {
-              this.message=''
+                ).then((res) => {
+                  this.spinShow=false
+                  this.submitMessageModal=false
+                  this.saveLoading=false
+                  this.hasClick=true
+                  this.$refs['formValidate'].resetFields();
+                  this.$Notice.success({
+                    title: '发送成功',
+                    desc:  '消息已成功发送至拾取人！ ',
+                    duration: 2
+                  });
+                }).catch(function(err){
+                  this.saveLoading=false
+                  this.$Notice.error({
+                    title: '发送失败',
+                    desc:  '消息发送失败，请稍后再试！ ',
+                    duration: 2
+                  });
+                })
+              }else{
+                this.$router.push({
+                  name: 'login'
+                })
+              }
             }
           })
         }

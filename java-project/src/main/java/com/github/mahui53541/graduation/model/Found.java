@@ -62,6 +62,11 @@ public class Found {
     private Date expiryDatetime;
 
     /**
+     * 失主Id
+     */
+    @Column(name="lost_id")
+    private Integer lostId;
+    /**
      * 是否找到失主
      */
     @Column(name = "is_found")
@@ -393,5 +398,13 @@ public class Found {
      */
     public void setSubmitDatetime(Date submitDatetime) {
         this.submitDatetime = submitDatetime;
+    }
+
+    public Integer getLostId() {
+        return lostId;
+    }
+
+    public void setLostId(Integer lostId) {
+        this.lostId = lostId;
     }
 }

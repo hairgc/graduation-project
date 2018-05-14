@@ -3,7 +3,9 @@
       <Search @on-search="search"
               :initKeyword="searchParams.keyword"
               :init-start-date="(searchParams.startDate==null|| searchParams.startDate.length==0)?null:Number.parseInt(searchParams.startDate)"
-              :init-end-date="(searchParams.endDate==null|| searchParams.endDate.length==0)?null:Number.parseInt(searchParams.endDate)"></Search>
+              :init-end-date="(searchParams.endDate==null|| searchParams.endDate.length==0)?null:Number.parseInt(searchParams.endDate)"
+              buttonType="warning"
+              back-color="#ffcc55"></Search>
       <Row :gutter="12">
         <Col :xs="12" :sm="8" :md="6" :lg="4" v-for="row,index in rows" :key="row.id" :style="{marginTop:'10px'}">
           <Card :padding="0">
@@ -26,8 +28,8 @@
               <div class="tag">
                 <div>
                   <iSwitch size="large" :value="row.isFound" :disabled="true">
-                    <span slot="open">已找回</span>
-                    <span slot="close">寻找</span>
+                    <span slot="open">领回</span>
+                    <span slot="close">待领</span>
                   </iSwitch>
                 </div>
                 <div>
@@ -37,7 +39,7 @@
 
               <p>
                 <router-link :to="'/found/'+row.id">
-                  <Button type="success" long>详情</Button>
+                  <Button type="warning" long>详情</Button>
                 </router-link>
               </p>
             </div>
@@ -50,7 +52,7 @@
       <BackTop></BackTop>
 
       <div class="add-button">
-        <Button @click="addFound" type="warning" icon="plus-round">发布</Button>
+        <Button @click="addFound" type="success" icon="plus-round">发布</Button>
       </div>
     </div>
 </template>
@@ -156,8 +158,8 @@
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     line-height: 1;
-    background-color: #dff0d8;
-    border-color: #d6e9c6;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
   }
   .card-head-inner {
     display: inline-block;
@@ -165,7 +167,7 @@
     height: 20px;
     line-height: 20px;
     font-size: 14px;
-    color: #3c763d;
+    color: #8a6d3b;
     font-weight: 700;
     overflow: hidden;
     text-overflow: ellipsis;

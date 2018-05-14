@@ -1,19 +1,14 @@
 package com.github.mahui53541.graduation.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.mahui53541.graduation.model.Found;
 import com.github.mahui53541.graduation.service.FoundService;
 import com.github.mahui53541.graduation.vo.FoundUserVO;
 import com.github.mahui53541.graduation.vo.FoundVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
-import java.util.Map;
 
 /**
  * java类简单作用描述
@@ -35,6 +30,7 @@ public class FoundController {
      * @RequestParam(name = "file",required = false) MultipartFile file,
      */
     @PostMapping(value = "")
+    @PreAuthorize("hasRole('USER')")
     public Object postFound(@RequestBody FoundVO foundVO){
         return ResponseEntity.ok(foundService.postFound(foundVO));
     }

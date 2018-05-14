@@ -38,6 +38,7 @@ public class UserFoundService extends BaseService<UserFoundMapper,UserFound> {
             Found found=foundMapper.selectByPrimaryKey(userFound.getFoundId());
             found.setFoundLostDatetime(new Date());
             found.setIsFound(true);
+            found.setLostId(userFound.getUserId());
             foundMapper.updateByPrimaryKey(found);
             return userFoundMapper.updateByPrimaryKey(userFound);
         }else if(type==2){
@@ -46,6 +47,7 @@ public class UserFoundService extends BaseService<UserFoundMapper,UserFound> {
             Lost lost=lostMapper.selectByPrimaryKey(userLost.getLostId());
             lost.setFoundDatetime(new Date());
             lost.setIsFound(true);
+            lost.setFoundId(userLost.getUserId());
             lostMapper.updateByPrimaryKey(lost);
             return userLostMapper.updateByPrimaryKey(userLost);
         }

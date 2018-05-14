@@ -14,6 +14,7 @@
     <result column="found_datetime" jdbcType="TIMESTAMP" property="foundDatetime" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="found_id" jdbcType="INTEGER" property="foundId" />
     <result column="has_reviewed" jdbcType="BIT" property="hasReviewed" />
     <result column="has_passed" jdbcType="BIT" property="hasPassed" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
@@ -21,4 +22,26 @@
     <result column="lost_description" jdbcType="LONGVARCHAR" property="lostDescription" />
     <result column="submit_datetime" jdbcType="TIMESTAMP" property="submitDatetime" />
   </resultMap>
+  <resultMap id="LostUserMap" type="com.github.mahui53541.graduation.vo.LostUserVO" extends="BaseResultMap">
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+  </resultMap>
+  <select id="queryByPage" resultMap="BaseResultMap">
+    SELECT * FROM lost
+    WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
+    <if test="keyword != null and keyword !=''">
+      AND MATCH (label,lost_name,lost_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
+    </if>
+    <if test="startDate!=null">
+      AND found_datetime &gt;= #{startDate}
+    </if>
+    <if test="endDate!=null">
+      AND found_datetime &lt;= #{endDate}
+    </if>
+    ORDER BY submit_datetime DESC
+  </select>
+  <select id="getLostDetail" resultMap="LostUserMap">
+    SELECT l.*,username,nickname,phone_number FROM lost l LEFT JOIN user u ON l.user_id=u.id WHERE l.id=#{id} AND has_reviewed=1 AND has_passed=1 AND l.deleted=false
+  </select>
 </mapper>

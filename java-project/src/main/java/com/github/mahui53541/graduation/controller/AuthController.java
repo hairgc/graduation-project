@@ -1,5 +1,6 @@
 package com.github.mahui53541.graduation.controller;
 
+import com.github.mahui53541.graduation.model.User;
 import com.github.mahui53541.graduation.security.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +30,21 @@ public class AuthController {
      * @return
      * @throws AuthenticationException
      */
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @GetMapping (value = "/login")
     public ResponseEntity createAuthenticationToken(@RequestParam("username")String username,
                                                     @RequestParam("password")String password,
                                                     @RequestParam("type")Integer type) throws AuthenticationException {
         final HashMap<String,Object> data = authService.login(username, password,type);
         return ResponseEntity.ok(data);
+    }
+
+    /**
+     * 用户注册
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "/register")
+    public Object registerUser(@RequestBody User user){
+        return ResponseEntity.ok(authService.register(user));
     }
 }

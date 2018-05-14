@@ -1,6 +1,6 @@
 <template>
   <Affix :offset-top="65" style="padding: 0">
-    <div class="search">
+    <div class="search" :style="{backgroundColor:backColor}">
       <Row>
         <Col :xs="24" :sm="12" :md="7" :lg="7">
           <Input v-model="keyword" size="small" placeholder="搜索关键字（钱包、U盘）" style="width: 150px"></Input>
@@ -12,7 +12,7 @@
           <DatePicker v-model="endDate" type="date" size="small" placeholder="结束日期" style="width: 150px"></DatePicker>
         </Col>
         <Col :xs="24" :sm="12" :md="3" :lg="3">
-          <Button type="success" size="small" shape="circle" icon="ios-search" @click="search"
+          <Button :type="buttonType" size="small" shape="circle" icon="ios-search" @click="search"
                   :disabled="keyword.trim().length==0&&startDate.length==0&&endDate.length==0">搜索
           </Button>
         </Col>
@@ -43,6 +43,14 @@
       initEndDate: {
         type: Number,
         default: null
+      },
+      backColor:{
+        type:String,
+        default:''
+      },
+      buttonType:{
+        type:String,
+        default:''
       }
     },
     methods: {
@@ -67,7 +75,7 @@
 <style scoped>
   .search {
     padding: 5px;
-    background-color: #1ccf7c;
+    background-color: #ffcc55;
     opacity: 99%;
   }
 </style>

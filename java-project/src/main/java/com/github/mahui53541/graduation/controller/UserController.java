@@ -9,22 +9,40 @@ package com.github.mahui53541.graduation.controller;
  * @Version: 1.0
  */
 
+import com.github.mahui53541.graduation.model.User;
+import com.github.mahui53541.graduation.security.service.AuthService;
 import com.github.mahui53541.graduation.service.UserService;
+import com.github.mahui53541.graduation.vo.UserPwdVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
     @Autowired
     private UserService userService;
-    @ResponseBody
-    @RequestMapping(value = "/all/{pageNum}/{pageSize}", produces = {"application/json;charset=UTF-8"})
-    public Object findAllUser(@PathVariable("pageNum") int pageNum, @PathVariable("pageSize") int pageSize){
 
-        return userService.findAllUser(pageNum,pageSize);
+    @PutMapping(value = "")
+    @PreAuthorize("hasRole('USER')")
+    public Object updateUser(@RequestBody User user){
+        user.setUsername(null);
+        user.setPassword(null);
+        user.setDeleted(null);
+        return ResponseEntity.ok(userService.updateByPrimaryKeySelective(user));
+    }
+
+    @PutMapping(value = "/changePwd")
+    @PreAuthorize("hasRole('USER')")
+    public Object changePwd(@RequestBody UserPwdVO userPwdVO){
+        return ResponseEntity.ok(userService.updatePwd(userPwdVO));
+    }
+
+    @GetMapping(value = "/isExist/{username}")
+    public Object isExist(@PathVariable("username")String username){
+        User user=new User();
+        user.setUsername(username);
+        return ResponseEntity.ok(userService.selectOne(user)!=null);
     }
 }

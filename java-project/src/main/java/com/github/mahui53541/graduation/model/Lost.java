@@ -48,6 +48,12 @@ public class Lost {
     private Date foundDatetime;
 
     /**
+     * 拾取人ID
+     */
+    @Column(name="found_id")
+    private Integer foundId;
+
+    /**
      * 发布者ID
      */
     @Column(name = "user_id")
@@ -348,5 +354,13 @@ public class Lost {
      */
     public void setSubmitDatetime(Date submitDatetime) {
         this.submitDatetime = submitDatetime;
+    }
+
+    public Integer getFoundId() {
+        return foundId;
+    }
+
+    public void setFoundId(Integer foundId) {
+        this.foundId = foundId;
     }
 }

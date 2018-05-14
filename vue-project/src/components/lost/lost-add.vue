@@ -1,27 +1,15 @@
 <template>
   <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-    <FormItem label="拾取物品" prop="foundName">
-      <Input v-model="formValidate.foundName" placeholder="拾取物品名称"></Input>
+    <FormItem label="丢失物品" prop="lostName">
+      <Input v-model="formValidate.lostName" placeholder="丢失物品名称"></Input>
     </FormItem>
-    <FormItem label="详细描述" prop="foundDescription">
-      <Input type="textarea" :rows="3" v-model="formValidate.foundDescription"
-             placeholder="拾取详细描述，请尽量描述拾取时间、地点等关键信息，当涉及贵重物品时建议隐藏关键信息，以防冒领！！！"></Input>
+    <FormItem label="详细描述" prop="lostDescription">
+      <Input type="textarea" :rows="3" v-model="formValidate.lostDescription"
+             placeholder="丢失物品详细描述，请尽量描述丢失时间、地点、物品外观等关键信息，！！！"></Input>
     </FormItem>
-    <Row>
-      <Col span="12">
-        <FormItem prop="foundDatetime" label="拾取时间">
-          <DatePicker type="datetime" placeholder="拾取时间" v-model="formValidate.foundDatetime"></DatePicker>
-        </FormItem>
-      </Col>
-      <Col span="12">
-        <FormItem label="防冒领？" prop="setFalseClaim">
-          <RadioGroup v-model="formValidate.setFalseClaim">
-            <Radio label="0">不开启</Radio>
-            <Radio label="1">开启</Radio>
-          </RadioGroup>
-        </FormItem>
-      </Col>
-    </Row>
+    <FormItem prop="lostDatetime" label="丢失时间">
+      <DatePicker type="datetime" placeholder="丢失时间" v-model="formValidate.lostDatetime"></DatePicker>
+    </FormItem>
     <Row>
       <Col span="9">
         <FormItem label="" prop="oneLabel">
@@ -76,7 +64,7 @@
   import {mapState} from 'vuex'
 
   export default {
-    name: 'found-add',
+    name: 'lost-add',
     data() {
       return {
         spinShow: false,
@@ -85,33 +73,25 @@
         imageSrc: '',
         maxSize: 2048,
         formValidate: {
-          foundName: '',
-          setFalseClaim: '0',
-          foundDatetime: '',
-          foundDescription: '',
+          lostName: '',
+          lostDatetime: '',
+          lostDescription: '',
           base64: '',
           label: [],
           oneLabel: ''
         },
         ruleValidate: {
-          foundName: [
-            {required: true, message: '拾取物品名称不能为空', trigger: 'blur'}
+          lostName: [
+            {required: true, message: '丢失物品名称不能为空', trigger: 'blur'}
           ],
-          setFalseClaim: [
-            {required: true, message: '选择是否开启', trigger: 'blur'}
-          ],
-          foundDescription: [
+          lostDescription: [
             {required: true, message: '物品详细描述不能为空', trigger: 'blur'}
           ],
           oneLabel: [
             {required: false, type: 'string', min: 1, max: 4, message: '标签长度1-4', trigger: 'change'}
           ],
-          interest: [
-            {required: true, type: 'array', min: 1, message: 'Choose at least one hobby', trigger: 'change'},
-            {type: 'array', max: 2, message: 'Choose two hobbies at best', trigger: 'change'}
-          ],
-          foundDatetime: [
-            {required: true, type: 'date', message: '请选择拾取日期', trigger: 'change'}
+          lostDatetime: [
+            {required: true, type: 'date', message: '请选择丢失日期', trigger: 'change'}
           ]
         }
       }
@@ -121,16 +101,15 @@
         // 箭头函数可使代码更简练
         user: 'user'
       }),
-      foundVO() {
+      lostVO() {
         return {
-          foundName: this.formValidate.foundName,
-          setFalseClaim: this.formValidate.setFalseClaim=="1",
-          foundDatetime: this.formValidate.foundDatetime.getTime(),
+          lostName: this.formValidate.lostName,
+          lostDatetime: this.formValidate.lostDatetime.getTime(),
           hasReviewed: true,
           hasPassed: true,
           isFound:false,
           deleted: false,
-          foundDescription: this.formValidate.foundDescription,
+          lostDescription: this.formValidate.lostDescription,
           file: this.formValidate.base64,
           submitDatetime: new Date().getTime(),
           label: this.formValidate.label.join("#"),
@@ -147,8 +126,8 @@
               content: '<p>确定提交吗？</p>',
               onOk: () => {
                 this.spinShow = true
-                this.axios.post('/api/found',
-                  this.foundVO
+                this.axios.post('/api/lost',
+                  this.lostVO
                 ).then((res) => {
                   this.spinShow = false
                   if (res.data == 1) {
@@ -161,7 +140,11 @@
                     });
                   }
                 }).catch(function (err) {
-                  console.log(err)
+                  this.$Message.error({
+                    content: '保存失败！',
+                    duration: 3,
+                    closable: true
+                  });
                 })
               }
             });

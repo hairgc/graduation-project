@@ -1,12 +1,15 @@
 package com.github.mahui53541.graduation.service;
 
+import com.github.mahui53541.graduation.vo.UserPwdVO;
 import com.github.pagehelper.PageHelper;
 import com.github.mahui53541.graduation.mapper.UserMapper;
 import com.github.mahui53541.graduation.model.User;
 import com.github.pagehelper.PageRowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -20,11 +23,24 @@ import java.util.List;
 @Service("userService")
 public class UserService extends BaseService<UserMapper,User>{
 
-    public List<User> findAllUser(int pageNum, int pageSize) {
-        //将参数传给这个方法就可以实现物理分页了，非常简单。
-        //PageHelper.startPage(pageNum, pageSize);
-        PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
-        List<User> users=userMapper.selectByRowBounds(null,rowBounds);
-        return users;
+    /**
+     * 修改密码
+     * @param userPwdVO
+     * @return
+     */
+    public HashMap<String,Object> updatePwd(UserPwdVO userPwdVO) {
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        HashMap<String,Object> result=new HashMap<>();
+        User user=userMapper.selectByPrimaryKey(userPwdVO.getId());
+        if(encoder.matches(userPwdVO.getOldPass(),user.getPassword())){
+            user.setPassword(encoder.encode(userPwdVO.getNewPass()));
+            userMapper.updateByPrimaryKey(user);
+            result.put("status","success");
+        }else{
+            result.put("status","error");
+        }
+        return result;
     }
+
+
 }

@@ -12,6 +12,7 @@
     <result column="found_datetime" jdbcType="TIMESTAMP" property="foundDatetime" />
     <result column="expiry_datetime" jdbcType="TIMESTAMP" property="expiryDatetime" />
     <result column="is_found" jdbcType="BIT" property="isFound" />
+    <result column="lost_id" jdbcType="INTEGER" property="lostId" />
     <result column="found_lost_datetime" jdbcType="TIMESTAMP" property="foundLostDatetime" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="admin_id" jdbcType="INTEGER" property="adminId" />

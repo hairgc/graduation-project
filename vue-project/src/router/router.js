@@ -2,8 +2,9 @@ import Index from '@/components/Index'
 import lost from '@/components/lost/lost';
 import found from '@/components/found/found';
 import login from '@/components/login'
+import register from '@/components/register'
 import foundDetail from '@/components/found/found_detail';
-
+import lostDetail from '@/components/lost/lost_detail';
 
 export const loginRouter = {
   path: '/login',
@@ -12,6 +13,14 @@ export const loginRouter = {
     title: 'Login - 登录'
   },
   component: login
+};
+export const registerRouter = {
+  path: '/register',
+  name: 'register',
+  meta: {
+    title: 'Register - 注册'
+  },
+  component: register
 };
 export const page404 = {
   path: '/*',
@@ -61,6 +70,10 @@ export const appRouter = [
         name: 'lost',
         path: 'lost/:page/:rows',
         component: lost
+      },{
+        path: '/lost/:id',
+        name: 'lostDetail',
+        component: lostDetail
       }, {
         name: 'found',
         path: 'found/:page/:rows',
@@ -71,6 +84,7 @@ export const appRouter = [
         component: foundDetail
       },
       {path: 'message', title: '消息中心', name: 'message', component: () => import('@/components/message/message.vue')},
+      {path: 'space', title: '个人中心', name: 'space', component: () => import('@/components/my-space/my-space.vue')},
       {
         path: 'letter/:id',
         title: '感谢信',
@@ -81,6 +95,11 @@ export const appRouter = [
         path: '/post/found',
         name: 'found-add',
         component: () => import('@/components/found/found-add.vue')
+      },
+      {
+        path: '/post/lost',
+        name: 'lost-add',
+        component: () => import('@/components/lost/lost-add.vue')
       }
     ]
   },
@@ -89,6 +108,7 @@ export const appRouter = [
 // 所有上面定义的路由都要写在下面的routers里
 export const routers = [
   loginRouter,
+  registerRouter,
   textEditor,
   ...appRouter,
   page500,
