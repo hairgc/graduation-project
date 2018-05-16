@@ -36,7 +36,7 @@
             <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
               <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
                 <a href="javascript:void(0)">
-                  <span class="main-user-name">{{ userName?'userName':'admin' }}</span>
+                  <span class="main-user-name">{{user.nickname}}</span>
                   <Icon type="arrow-down-b"></Icon>
                 </a>
                 <DropdownMenu slot="list">
@@ -78,13 +78,15 @@
     data() {
       return {
         shrink: false,
-        userName: '',
         openedSubmenuArr: this.$store.state.app.openedSubmenuArr
       };
     },
     computed: {
       menuList() {
         return this.$store.state.app.menuList;
+      },
+      user(){
+        return this.$store.state.user.user
       },
       pageTagsList() {
         return this.$store.state.app.pageOpenedList; // 打开的页面的页面对象

@@ -51,36 +51,56 @@ export const otherRouter = {
 // 作为Main组件的子页面展示并且在左侧菜单显示的路由写在appRouter里
 export const appRouter = [
   {
-    path: '/group',
-    icon: 'ios-folder',
-    name: 'group',
-    title: {i18n: 'home'},
+    path: '/base',
+    icon: 'ios-people',
+    name: 'base',
+    title: {i18n: 'base'},
     component: Main,
     children: [
       {
-        path: 'page1',
-        icon: 'ios-paper-outline',
-        name: 'page1',
-        title: 'Page1',
-        component: resolve => { require(['@/views/group/page1/page1.vue'], resolve); }
+        path: 'user',
+        icon: 'ios-person',
+        name: 'user',
+        title: {i18n: 'userManagement'},
+        component: resolve => { require(['@/views/page/base/user-management.vue'], resolve); }
       },
       {
-        path: 'page2',
-        icon: 'ios-list-outline',
-        name: 'page2',
-        title: 'Page2',
-        component: resolve => { require(['@/views/group/page2/page2.vue'], resolve); }
+        path: 'admin',
+        icon: 'ios-person-outline',
+        name: 'admin',
+        title:  {i18n: 'adminManagement'},
+        component: resolve => { require(['@/views/page/base/admin-management.vue'], resolve); }
       }
     ]
   },
   {
-    path: '/page',
-    icon: 'ios-paper',
-    title: 'Page',
-    name: 'page',
+    path: '/found',
+    icon: 'ios-heart',
     component: Main,
+    name:'found',
+    redirect: '/found/management',
     children: [
-      { path: 'index', title: 'Page', name: 'page_index', component: resolve => { require(['@/views/page/page.vue'], resolve); } }
+      { path: 'management', title:{i18n: 'foundManagement'}, name: 'foundManagement', component: resolve => { require(['@/views/page/found-management/found-management.vue'], resolve); } }
+    ]
+  },
+  {
+    path: '/lost',
+    icon: 'heart-broken',
+    component: Main,
+    name:'lost',
+    redirect: '/lost/management',
+    children: [
+      { path: 'management', title:{i18n: 'lostManagement'}, name: 'lostManagement', component: resolve => { require(['@/views/page/lost-management/lost-management.vue'], resolve); } }
+    ]
+  },
+  {
+    path: '/letter',
+    icon: 'ios-email',
+    component: Main,
+    name:'letter',
+    redirect: '/letter/management',
+    children: [
+      { path: 'management', title:{i18n: 'letterManagement'}, name: 'letterManagement', component: resolve => { require(['@/views/page/thanks-letter/thanks-letter.vue'], resolve); } }
     ]
   }
 ];

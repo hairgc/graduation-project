@@ -4,11 +4,13 @@ import com.github.mahui53541.graduation.vo.UserPwdVO;
 import com.github.pagehelper.PageHelper;
 import com.github.mahui53541.graduation.mapper.UserMapper;
 import com.github.mahui53541.graduation.model.User;
+import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageRowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,5 +44,16 @@ public class UserService extends BaseService<UserMapper,User>{
         return result;
     }
 
+    /**
+     * 分页查询用户
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<User> queryByPage(Integer pageNum, Integer pageSize, String keyword){
+        PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
+        PageInfo<User> p=new PageInfo(userMapper.queryByPage(keyword,rowBounds));
+        return p;
+    }
 
 }

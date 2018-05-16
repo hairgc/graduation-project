@@ -14,4 +14,13 @@
     <result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
+  <select id="queryByPage" resultMap="BaseResultMap">
+    SELECT * FROM admin
+    <where>
+      <if test="keyword != null and keyword !=''">
+        AND MATCH (nickname,username,phone_number) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
+      </if>
+    </where>
+    ORDER BY id DESC
+  </select>
 </mapper>

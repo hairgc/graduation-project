@@ -25,6 +25,8 @@ public class BaseService< Mapp extends Mapper< M >, M > {
     protected UserFoundMapper userFoundMapper;
     @Autowired
     protected UserLostMapper userLostMapper;
+    @Autowired
+    protected AdminRoleMapper adminRoleMapper;
 
     public int deleteByExample ( Object example ) {
         return mapper.deleteByExample ( example );
