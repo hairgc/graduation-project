@@ -35,8 +35,8 @@ axios.interceptors.request.use(
       //config.data = qs.stringify(config.data);
     }
     // 若是有做鉴权token , 就给头部带上token
-    if (Cookies.get('token')) {
-      config.headers.Authorization = Cookies.get('token');
+    if (Cookies.get('admin_token')) {
+      config.headers.Authorization = Cookies.get('admin_token');
     }
     console.log('bef:request:success')
     return config;
