@@ -275,6 +275,7 @@
                   duration: 3,
                   closable: true
                 });
+                this.keyword=''
                 this.cancleSave()
                 this.getAdmin()
               } else {

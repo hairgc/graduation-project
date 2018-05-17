@@ -28,6 +28,11 @@
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
+  <resultMap id="FoundAdminMap" type="com.github.mahui53541.graduation.vo.FoundAdminVO" extends="BaseResultMap">
+    <result column="adminname" jdbcType="VARCHAR" property="adminName" />
+    <result column="username" jdbcType="VARCHAR" property="userName" />
+    <result column="lostname" jdbcType="VARCHAR" property="lostName" />
+  </resultMap>
   <select id="queryByPage" resultMap="BaseResultMap">
     SELECT * FROM found
       WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
@@ -35,12 +40,30 @@
         AND MATCH (label,found_name,found_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
       </if>
     <if test="startDate!=null">
-      AND found_datetime &gt;= #{startDate}
+      AND DATE(found_datetime) &gt;= #{startDate}
     </if>
     <if test="endDate!=null">
-      AND found_datetime &lt;= #{endDate}
+      AND DATE(found_datetime) &lt;= #{endDate}
     </if>
       ORDER BY submit_datetime DESC
+  </select>
+  <select id="queryAllByPage" resultMap="FoundAdminMap">
+    SELECT f.*,u.nickname as username,a.nickname as adminname,l.nickname as lostname FROM found f
+    LEFT JOIN user u ON f.user_id=u.id
+    LEFT JOIN admin a ON f.admin_id=a.id
+    LEFT JOIN user l ON f.lost_id=l.id
+    <where>
+      <if test="keyword != null and keyword !=''">
+        AND MATCH (label,found_name,found_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
+      </if>
+      <if test="startDate!=null">
+        AND DATE(found_datetime) &gt;= #{startDate}
+      </if>
+      <if test="endDate!=null">
+        AND DATE(found_datetime) &lt;= #{endDate}
+      </if>
+    </where>
+    ORDER BY f.submit_datetime DESC
   </select>
   <select id="getFoundDetail" resultMap="foundUserMap">
     SELECT f.*,username,nickname,phone_number FROM found  f LEFT JOIN user u ON f.user_id=u.id WHERE f.id=#{id} AND has_reviewed=1 AND has_passed=1 AND f.deleted=false

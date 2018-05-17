@@ -3,10 +3,13 @@ package com.github.mahui53541.graduation.service;
 import com.github.mahui53541.graduation.mapper.AdminMapper;
 import com.github.mahui53541.graduation.model.Admin;
 import com.github.mahui53541.graduation.model.AdminRole;
+import com.github.mahui53541.graduation.vo.UserPwdVO;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.PageRowBounds;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
 
 /**
  * java类简单作用描述
@@ -44,5 +47,24 @@ public class AdminService extends BaseService<AdminMapper,Admin>{
         adminRole.setAdminId(admin.getId());
         adminRole.setRoleId(2);
         return adminRoleMapper.insert(adminRole);
+    }
+
+    /**
+     * 修改密码
+     * @param userPwdVO
+     * @return
+     */
+    public HashMap<String,Object> updatePwd(UserPwdVO userPwdVO) {
+        BCryptPasswordEncoder encoder=new BCryptPasswordEncoder();
+        HashMap<String,Object> result=new HashMap<>();
+        Admin admin=adminMapper.selectByPrimaryKey(userPwdVO.getId());
+        if(encoder.matches(userPwdVO.getOldPass(),admin.getPassword())){
+            admin.setPassword(encoder.encode(userPwdVO.getNewPass()));
+            adminMapper.updateByPrimaryKey(admin);
+            result.put("status","success");
+        }else{
+            result.put("status","error");
+        }
+        return result;
     }
 }

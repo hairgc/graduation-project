@@ -44,7 +44,8 @@ export const otherRouter = {
   component: Main,
   redirect: '/home',
   children: [
-    { path: 'home', title: {i18n: 'home'}, name: 'home_index', component: ()=> import ('@/views/home/home.vue') }
+    {path: 'home', title: {i18n: 'home'}, name: 'home_index', component: ()=> import ('@/views/home/home.vue') },
+    {path: 'space', title: {i18n:'ownSpace'}, name: 'space', component: () => import('@/views/page/my-space/my-space.vue')},
   ]
 };
 

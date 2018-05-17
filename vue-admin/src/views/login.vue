@@ -65,8 +65,8 @@
             this.axios.get('/api/auth/login',
               {
                 params: this.form}).then((res) => {
-              Cookies.set('user', res.data.user);
-              Cookies.set('token', res.data.token);
+              Cookies.set('admin', res.data.user);
+              Cookies.set('admin_token', res.data.token);
               this.$store.commit('login',res.data)
               this.$router.push({
                 name: 'home_index'

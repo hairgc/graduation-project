@@ -2,8 +2,8 @@ import Cookies from 'js-cookie';
 
 const user = {
   state: {
-    user:Cookies.getJSON('user'),
-    token:Cookies.get('token')
+    user:Cookies.getJSON('admin'),
+    token:Cookies.get('admin_token')
   },
   mutations: {
     login(state, payload) {
@@ -13,8 +13,8 @@ const user = {
     logout(state, vm) {
       state.user = null
       state.token = null
-      Cookies.remove('user');
-      Cookies.remove('token');
+      Cookies.remove('admin');
+      Cookies.remove('admin_token');
       localStorage.clear();
     }
   }

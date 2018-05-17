@@ -152,7 +152,14 @@
                 ).then((res) => {
                   this.spinShow = false
                   if (res.data == 1) {
-                    this.$router.go(-1);
+                    this.$router.push({
+                      name:'lost',
+                      params: { page: 1,rows:20 },
+                      query:{
+                        keyword:this.foundVO.foundName,
+                        endDate:this.foundVO.foundDatetime
+                      }
+                    });
                   } else {
                     this.$Message.error({
                       content: '保存失败！',

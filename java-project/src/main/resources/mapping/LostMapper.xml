@@ -27,6 +27,11 @@
     <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
   </resultMap>
+  <resultMap id="LostAdminMap" type="com.github.mahui53541.graduation.vo.LostAdminVO" extends="BaseResultMap">
+    <result column="adminname" jdbcType="VARCHAR" property="adminName" />
+    <result column="username" jdbcType="VARCHAR" property="userName" />
+    <result column="foundname" jdbcType="VARCHAR" property="foundName" />
+  </resultMap>
   <select id="queryByPage" resultMap="BaseResultMap">
     SELECT * FROM lost
     WHERE has_reviewed=1 AND has_passed=1 AND deleted=false
@@ -34,12 +39,30 @@
       AND MATCH (label,lost_name,lost_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
     </if>
     <if test="startDate!=null">
-      AND found_datetime &gt;= #{startDate}
+      AND DATE(found_datetime) &gt;= #{startDate}
     </if>
     <if test="endDate!=null">
-      AND found_datetime &lt;= #{endDate}
+      AND DATE(found_datetime) &lt;= #{endDate}
     </if>
     ORDER BY submit_datetime DESC
+  </select>
+  <select id="queryAllByPage" resultMap="LostAdminMap">
+    SELECT l.*,u.nickname as username,a.nickname as adminname,f.nickname as foundname FROM lost l
+    LEFT JOIN user u ON l.user_id=u.id
+    LEFT JOIN admin a ON l.admin_id=a.id
+    LEFT JOIN  user f ON l.found_id=f.id
+    <where>
+      <if test="keyword != null and keyword !=''">
+        AND MATCH (label,lost_name,lost_description) AGAINST (#{keyword} IN NATURAL LANGUAGE MODE)
+      </if>
+      <if test="startDate!=null">
+        AND DATE(found_datetime) &gt;= #{startDate}
+      </if>
+      <if test="endDate!=null">
+        AND DATE(found_datetime) &lt;= #{endDate}
+      </if>
+    </where>
+    ORDER BY l.submit_datetime DESC
   </select>
   <select id="getLostDetail" resultMap="LostUserMap">
     SELECT l.*,username,nickname,phone_number FROM lost l LEFT JOIN user u ON l.user_id=u.id WHERE l.id=#{id} AND has_reviewed=1 AND has_passed=1 AND l.deleted=false

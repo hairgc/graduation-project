@@ -1,5 +1,7 @@
 package com.github.mahui53541.graduation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import javax.persistence.*;
 
@@ -89,6 +91,7 @@ public class User {
      *
      * @return password - 密码
      */
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

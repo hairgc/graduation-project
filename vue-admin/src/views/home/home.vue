@@ -3,7 +3,10 @@
 </style>
 <template>
     <div class="home-main">
-        home
+        <img src="@/assets/images/logo-min.png"/>
+      <h1>
+        中国矿业大学失物招领网站管理平台
+      </h1>
     </div>
 </template>
 

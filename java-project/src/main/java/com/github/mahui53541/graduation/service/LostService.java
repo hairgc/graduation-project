@@ -3,6 +3,7 @@ package com.github.mahui53541.graduation.service;
 import com.github.mahui53541.graduation.mapper.LostMapper;
 import com.github.mahui53541.graduation.model.Lost;
 import com.github.mahui53541.graduation.util.FileUploadUtil;
+import com.github.mahui53541.graduation.vo.LostAdminVO;
 import com.github.mahui53541.graduation.vo.LostUserVO;
 import com.github.mahui53541.graduation.vo.LostVO;
 import com.github.pagehelper.PageInfo;
@@ -35,6 +36,18 @@ public class LostService extends BaseService<LostMapper,Lost> {
     public PageInfo<Lost> queryByPage(Integer pageNum, Integer pageSize, String keyword, Date startDate, Date endDate){
         PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
         PageInfo<Lost> p=new PageInfo(lostMapper.queryByPage(keyword,startDate,endDate,rowBounds));
+        return p;
+    }
+
+    /**
+     * 平台查询失物招领
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<LostAdminVO> queryAllByPage(Integer pageNum, Integer pageSize, String keyword, Date startDate, Date endDate){
+        PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
+        PageInfo<LostAdminVO> p=new PageInfo(lostMapper.queryAllByPage(keyword,startDate,endDate,rowBounds));
         return p;
     }
 

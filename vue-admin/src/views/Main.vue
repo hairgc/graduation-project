@@ -31,7 +31,6 @@
           <div class="switch-theme switch-theme-con">
             <theme-switch></theme-switch>
           </div>
-
           <div class="user-dropdown-menu-con">
             <Row type="flex" justify="end" align="middle" class="user-dropdown-innercon">
               <Dropdown transfer trigger="click" @on-click="handleClickUserDropdown">
@@ -40,8 +39,14 @@
                   <Icon type="arrow-down-b"></Icon>
                 </a>
                 <DropdownMenu slot="list">
-                  <DropdownItem name="ownSpace">个人中心</DropdownItem>
-                  <DropdownItem name="loginout" divided>退出登录</DropdownItem>
+                  <router-link to="/space">
+                    <DropdownItem name="ownSpace">个人中心</DropdownItem>
+                  </router-link>
+                  <DropdownItem name="loginout1" divided>
+                     <span @click="logout">
+                        退出登录
+                     </span>
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
               <Avatar icon="person" style="margin-left:10px;"></Avatar>
@@ -85,7 +90,7 @@
       menuList() {
         return this.$store.state.app.menuList;
       },
-      user(){
+      user() {
         return this.$store.state.user.user
       },
       pageTagsList() {
@@ -128,15 +133,16 @@
         // console.log(val)
       },
       beforePush(name) {
-        // if (name === 'accesstest_index') {
-        //     return false;
-        // } else {
-        //     return true;
-        // }
         return true;
       },
       scrollBarResize() {
         this.$refs.scrollBar.resize();
+      },
+      logout() {
+        this.$store.commit('logout');
+        this.$router.push({
+          name:'login'
+        })
       }
     },
     watch: {

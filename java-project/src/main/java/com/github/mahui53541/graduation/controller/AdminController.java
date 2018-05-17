@@ -2,6 +2,7 @@ package com.github.mahui53541.graduation.controller;
 
 import com.github.mahui53541.graduation.model.Admin;
 import com.github.mahui53541.graduation.service.AdminService;
+import com.github.mahui53541.graduation.vo.UserPwdVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -68,5 +69,30 @@ public class AdminController {
         Admin admin=new Admin();
         admin.setUsername(username);
         return ResponseEntity.ok(adminService.selectOne(admin)!=null);
+    }
+
+    /**
+     * 修改密码
+     * @param userPwdVO
+     * @return
+     */
+    @PutMapping(value = "/changePwd")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Object changePwd(@RequestBody UserPwdVO userPwdVO){
+        return ResponseEntity.ok(adminService.updatePwd(userPwdVO));
+    }
+
+    /**
+     * 更新
+     * @param admin
+     * @return
+     */
+    @PutMapping(value = "")
+    @PreAuthorize("hasRole('ADMIN')")
+    public Object updateUser(@RequestBody Admin admin){
+        admin.setUsername(null);
+        admin.setPassword(null);
+        admin.setDeleted(null);
+        return ResponseEntity.ok(adminService.updateByPrimaryKeySelective(admin));
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div>
-      <Search @on-search="search"
+      <Search @on-search="search" @on-cancel="cancel"
               :initKeyword="searchParams.keyword"
               :init-start-date="(searchParams.startDate==null|| searchParams.startDate.length==0)?null:Number.parseInt(searchParams.startDate)"
               :init-end-date="(searchParams.endDate==null|| searchParams.endDate.length==0)?null:Number.parseInt(searchParams.endDate)"
@@ -116,6 +116,13 @@
             name: 'found',
             params: { page: 1,rows:20 },
             query:this.searchParams
+          })
+        },
+        cancel(){
+          this.searchParams={}
+          this.$router.push({
+            name: 'found',
+            params: { page: this.page,rows:this.page_size }
           })
         },
         getFound:function () {

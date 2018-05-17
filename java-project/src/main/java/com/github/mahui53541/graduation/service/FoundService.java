@@ -3,6 +3,7 @@ package com.github.mahui53541.graduation.service;
 import com.github.mahui53541.graduation.mapper.FoundMapper;
 import com.github.mahui53541.graduation.model.Found;
 import com.github.mahui53541.graduation.util.FileUploadUtil;
+import com.github.mahui53541.graduation.vo.FoundAdminVO;
 import com.github.mahui53541.graduation.vo.FoundUserVO;
 import com.github.mahui53541.graduation.vo.FoundVO;
 import com.github.pagehelper.PageInfo;
@@ -38,6 +39,17 @@ public class FoundService extends BaseService<FoundMapper,Found> {
         return p;
     }
 
+    /**
+     * 平台查询失物招领
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<FoundAdminVO> queryAllByPage(Integer pageNum, Integer pageSize, String keyword, Date startDate, Date endDate){
+        PageRowBounds rowBounds=new PageRowBounds((pageNum-1)*pageSize,pageSize);
+        PageInfo<FoundAdminVO> p=new PageInfo(foundMapper.queryAllByPage(keyword,startDate,endDate,rowBounds));
+        return p;
+    }
     /**
      * 获取详情
      * @param id

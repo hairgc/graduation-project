@@ -7,7 +7,7 @@ let util = {
 
 };
 util.title = function (title) {
-    title = title || 'iView admin';
+    title = title || 'CUMT-SWZL-ADMIN';
     window.document.title = title;
 };
 

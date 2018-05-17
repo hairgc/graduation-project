@@ -28,4 +28,10 @@
       LEFT JOIN user u2 ON t.thanks_id=u2.id
       WHERE t.deleted=0 AND t.id=#{id}
   </select>
+  <select id="queryAllByPage" resultMap="ThanksLetterVOMap">
+    SELECT t.*,u1.nickname as editor_name,u2.nickname as thanks_name FROM thanks_letter t
+    LEFT JOIN user u1 ON t.editor_id=u1.id
+    LEFT JOIN user u2 ON t.thanks_id=u2.id
+    ORDER BY submit_datetime DESC
+  </select>
 </mapper>
