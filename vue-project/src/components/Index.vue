@@ -47,7 +47,7 @@
                     {{user.nickname}}
                     <Icon type="arrow-down-b"></Icon>
                   </a>
-                  <Avatar src="https://i.loli.net/2017/08/21/599a521472424.jpg" size="small"/>
+                  <Avatar :src="require('@/assets/user.jpg')" size="small"/>
                   <DropdownMenu slot="list">
                     <router-link to="/space">
                       <DropdownItem><Icon type="ios-person-outline"></Icon>个人中心</DropdownItem>
