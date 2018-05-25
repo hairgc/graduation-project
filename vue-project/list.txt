@@ -1,0 +1,63 @@
+文件夹 PATH 列表
+卷序列号为 BE62-0D2B
+E:.
+│  .babelrc
+│  .editorconfig
+│  .eslintignore
+│  .eslintrc.js
+│  .gitignore
+│  .postcssrc.js
+│  index.html
+│  package-lock.json
+│  package.json
+│  README.md
+├─build
+│      build.js
+│      check-versions.js
+│      logo.png
+│      utils.js
+│      vue-loader.conf.js
+│      webpack.base.conf.js
+│      webpack.dev.conf.js
+│      webpack.prod.conf.js
+│
+├─config
+│      dev.env.js
+│      index.js
+│      prod.env.js
+│      test.env.js
+│
+├─node_modules
+├─src
+│  │  App.vue
+│  │  main.js
+│  ├─assets
+│  │     logo.png
+│  ├─components
+│  │     Index.vue
+│  │
+│  ├─router
+│         index.js
+│
+├─static
+│      .gitkeep
+│
+└─test
+    ├─e2e
+    │  │  nightwatch.conf.js
+    │  │  runner.js
+    │  │
+    │  ├─custom-assertions
+    │  │      elementCount.js
+    │  │
+    │  └─specs
+    │          test.js
+    │
+    └─unit
+        │  .eslintrc
+        │  jest.conf.js
+        │  setup.js
+        │
+        └─specs
+                HelloWorld.spec.js
+
