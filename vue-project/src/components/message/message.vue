@@ -134,7 +134,10 @@
                         params: { id: params.row.foreignId }
                       })
                     }else{
-
+                      this.$router.push({
+                        name:'lostDetail',
+                        params: { id: params.row.foreignId }
+                      })
                     }
                   }
                 }

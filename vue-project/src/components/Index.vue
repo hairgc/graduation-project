@@ -3,8 +3,10 @@
     <Layout>
       <Header :style="{position: 'fixed', width: '100%',zIndex:10,background:'#fff',padding:'0'}">
         <Menu mode="horizontal" theme="light" class="layout-menu">
+
           <div class="layout-logo">
-            中国矿业大学失物招领网站
+            <img src="../assets/logo_min.png" class="ivu-avatar ivu-avatar-circle ivu-avatar-large ivu-avatar-image"/>
+            矿大失物招领网站
           </div>
           <div class="layout-nav">
             <router-link to="/found/1/20">
@@ -153,13 +155,13 @@
   }
   .layout-logo{
     font-size: 18px;
-    width: 230px;
+    width: 260px;
     height: 40px;
     border-radius: 3px;
     float: left;
-    left: 20px;
+    left: 25px;
     text-align: center;
-    color:red;
+    color:#002956;
     font-family: '隶书';
   }
   .layout-menu{

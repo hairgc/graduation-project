@@ -135,7 +135,13 @@
           })
         },
         clickButton(){
-          this.submitMessageModal=true
+          if(this.user!=null){
+            this.submitMessageModal=true
+          }else{
+            this.$router.push({
+              name: 'login'
+            })
+          }
         },
         cancelSubmit () {
           this.submitMessageModal = false;
